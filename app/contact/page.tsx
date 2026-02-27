@@ -1,0 +1,203 @@
+'use client';
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Loader2, CheckCircle2, Send, Phone, Mail, MapPin } from 'lucide-react';
+
+const ContactPage = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        subject: 'Property Inquiry',
+        message: ''
+    });
+    const [loading, setLoading] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState('');
+
+    const offices = [
+        { city: 'Islamabad', address: 'Building 14, Blue Area, Jinnah Avenue', phone: '+92 51 987 6543' },
+        { city: 'Rawalpindi', address: 'Phase 7 Commercial, Bahria Town', phone: '+92 51 543 2109' },
+        { city: 'Lahore', address: 'Plaza 15, Sector J, DHA Phase 6', phone: '+92 42 111 222 333' }
+    ];
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Something went wrong');
+
+            setSubmitted(true);
+            setFormData({ name: '', email: '', phone: '', subject: 'Property Inquiry', message: '' });
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (submitted) {
+        return (
+            <div className="min-h-[70vh] flex items-center justify-center px-4">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="max-w-md w-full text-center bg-white p-12 rounded-[3rem] shadow-2xl shadow-indigo-100 border border-slate-100"
+                >
+                    <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <CheckCircle2 className="w-12 h-12 text-emerald-600" />
+                    </div>
+                    <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Message Sent!</h2>
+                    <p className="text-slate-500 mb-8 font-medium">Thank you for reaching out. Our team will get back to you within 24 hours.</p>
+                    <button
+                        onClick={() => setSubmitted(false)}
+                        className="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-xl"
+                    >
+                        Send Another Message
+                    </button>
+                </motion.div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="animate-in fade-in duration-500 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">Get in <span className="text-indigo-600">Touch</span></h1>
+                <p className="text-lg text-slate-500 font-medium leading-relaxed">Whether you&apos;re looking to buy, sell, or build, our experts are here to guide you through every step of the process.</p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div className="bg-white p-8 md:p-12 rounded-[3rem] shadow-3xl shadow-slate-100 border border-slate-50">
+                    <h2 className="text-2xl font-black text-slate-900 mb-8 tracking-tight">Send us a Message</h2>
+                    {error && (
+                        <div className="bg-rose-50 border border-rose-100 text-rose-600 p-4 rounded-xl mb-6 text-sm font-medium">
+                            {error}
+                        </div>
+                    )}
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
+                                <input
+                                    required
+                                    type="text"
+                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none font-medium text-slate-900"
+                                    placeholder="John Doe"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Phone Number</label>
+                                <input
+                                    required
+                                    type="tel"
+                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none font-medium text-slate-900"
+                                    placeholder="+92 300 1234567"
+                                    value={formData.phone}
+                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                />
+                            </div>
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
+                            <input
+                                required
+                                type="email"
+                                className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none font-medium text-slate-900"
+                                placeholder="john@example.com"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Subject</label>
+                            <select
+                                className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none cursor-pointer font-medium text-slate-900"
+                                value={formData.subject}
+                                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                            >
+                                <option>Property Inquiry</option>
+                                <option>Construction Estimate</option>
+                                <option>Investment Consultation</option>
+                                <option>General Support</option>
+                            </select>
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Message</label>
+                            <textarea
+                                required
+                                rows={6}
+                                className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none resize-none font-medium text-slate-900"
+                                placeholder="How can we help you?"
+                                value={formData.message}
+                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                            ></textarea>
+                        </div>
+                        <button
+                            disabled={loading}
+                            type="submit"
+                            className="bg-slate-900 text-white font-black px-10 py-5 rounded-2xl shadow-xl hover:bg-indigo-600 transition-all w-full flex items-center justify-center gap-3 disabled:opacity-50 active:scale-95 text-xs uppercase tracking-widest"
+                        >
+                            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Send Message <Send className="w-4 h-4" /></>}
+                        </button>
+                    </form>
+                </div>
+
+                <div className="space-y-12">
+                    <div>
+                        <h2 className="text-2xl font-black text-slate-900 mb-8 tracking-tight">Our Regional Hubs</h2>
+                        <div className="space-y-6">
+                            {offices.map((office) => (
+                                <div key={office.city} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-indigo-100 transition-all group">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h3 className="text-lg font-black text-slate-900 tracking-tight">{office.city} Office</h3>
+                                        <div className="p-2 bg-indigo-50 rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                            <MapPin className="w-4 h-4" />
+                                        </div>
+                                    </div>
+                                    <p className="text-slate-500 text-sm mb-4 font-medium">{office.address}</p>
+                                    <div className="flex items-center gap-2 text-indigo-600 font-bold text-sm">
+                                        <Phone className="w-4 h-4" />
+                                        <span>{office.phone}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="bg-slate-950 text-white p-10 rounded-[3rem] relative overflow-hidden shadow-2xl shadow-slate-200">
+                        <div className="relative z-10">
+                            <h3 className="text-2xl font-black mb-4 tracking-tight">Urgent Consultation?</h3>
+                            <p className="text-slate-400 text-sm mb-8 font-medium leading-relaxed">Call our central helpline available 24/7 for premium clients and emergency support.</p>
+                            <div className="flex items-center space-x-6">
+                                <div className="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-indigo-500/20">
+                                    <Phone className="w-6 h-6" />
+                                </div>
+                                <div>
+                                    <p className="text-[10px] text-indigo-400 uppercase font-black tracking-widest mb-1">24/7 Hotline</p>
+                                    <p className="text-2xl font-black text-white">+92 51 000 0000</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+                        <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full -ml-8 -mb-8 blur-2xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ContactPage;
