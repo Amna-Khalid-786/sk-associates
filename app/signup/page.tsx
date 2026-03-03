@@ -48,8 +48,8 @@ export default function SignupPage() {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src="https://images.unsplash.com/photo-1510798831907-f1c6670c53d1?auto=format&fit=crop&w=1920&q=80"
-                    alt="Construction Background"
+                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
+                    alt="Real Estate Background"
                     className="w-full h-full object-cover opacity-30 scale-105 animate-pulse-slow"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-950/80 to-indigo-950/50"></div>
@@ -58,14 +58,14 @@ export default function SignupPage() {
             {/* Floating Decorative Elements */}
             <div className="absolute inset-0 pointer-events-none">
                 <motion.div
-                    animate={{ x: [0, 30, 0], opacity: [0.05, 0.1, 0.05] }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-[20%] right-[10%] w-80 h-80 bg-blue-500 rounded-full blur-[100px]"
+                    animate={{ y: [0, -30, 0], opacity: [0.1, 0.2, 0.1] }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-[10%] left-[5%] w-96 h-96 bg-indigo-500 rounded-full blur-[120px]"
                 />
                 <motion.div
-                    animate={{ x: [0, -30, 0], opacity: [0.05, 0.1, 0.05] }}
-                    transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute bottom-[20%] left-[10%] w-[400px] h-[400px] bg-indigo-500 rounded-full blur-[130px]"
+                    animate={{ y: [0, 30, 0], opacity: [0.05, 0.15, 0.05] }}
+                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-purple-500 rounded-full blur-[150px]"
                 />
             </div>
 
@@ -129,7 +129,7 @@ export default function SignupPage() {
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     required
-                                    className="w-full pl-12 pr-12 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-indigo-500 focus:bg-white/10 text-white outline-none transition-all placeholder:text-slate-600"
+                                    className="w-full pl-12 pr-12 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-indigo-500 focus:bg-white/10 text-white outline-none transition-all placeholder:text-slate-600 [appearance:textfield] [&::-ms-reveal]:hidden [&::-ms-clear]:hidden [&::-webkit-password-reveal]:hidden"
                                     placeholder="••••••••"
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}

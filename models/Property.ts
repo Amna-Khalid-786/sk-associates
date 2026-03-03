@@ -12,6 +12,7 @@ export interface IProperty extends Document {
     beds?: number;
     baths?: number;
     imageUrl: string;
+    images?: string[];
     featured: boolean;
     postedDate: Date;
     features?: string[];
@@ -41,6 +42,7 @@ const PropertySchema: Schema = new Schema({
     beds: { type: Number },
     baths: { type: Number },
     imageUrl: { type: String, required: true },
+    images: [{ type: String }],
     featured: { type: Boolean, default: false },
     postedDate: { type: Date, default: Date.now },
     features: [{ type: String }],

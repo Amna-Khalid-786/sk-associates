@@ -16,6 +16,7 @@ export interface Property {
     beds?: number;
     baths?: number;
     imageUrl: string;
+    images?: string[];
     featured: boolean;
     postedDate: string;
     features: string[];
