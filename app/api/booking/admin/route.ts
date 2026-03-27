@@ -38,7 +38,7 @@ export async function PATCH(req: Request) {
             return NextResponse.json({ message: 'Booking ID and status are required' }, { status: 400 });
         }
 
-        const validStatuses = ['pending', 'accepted', 'reserved', 'sold'];
+        const validStatuses = ['pending', 'accepted', 'rented', 'sold'];
         if (!validStatuses.includes(status)) {
             return NextResponse.json({ message: 'Invalid status' }, { status: 400 });
         }
@@ -50,7 +50,7 @@ export async function PATCH(req: Request) {
         }
 
         // Notify Client of Status Change
-        if (['accepted', 'reserved', 'sold'].includes(status)) {
+        if (['pending', 'accepted', 'rented', 'sold'].includes(status)) {
             try {
                 const transporter = nodemailer.createTransport({
                     host: process.env.EMAIL_HOST,
@@ -62,14 +62,16 @@ export async function PATCH(req: Request) {
                 });
 
                 const statusLabels: Record<string, string> = {
+                    pending: 'Pending Review',
                     accepted: 'Accepted',
-                    reserved: 'Reserved',
+                    rented: 'Rented',
                     sold: 'Sold Out'
                 };
 
                 const statusMessages: Record<string, string> = {
+                    pending: 'Your inquiry is currently under review. Our team will get back to you shortly.',
                     accepted: 'We have reviewed your inquiry and it has been accepted. Our team will contact you shortly to discuss the next steps.',
-                    reserved: 'This property has been reserved for you. Please complete the remaining formalities to secure your booking.',
+                    rented: 'This property has been secured for you. Please complete the remaining formalities to finalize your renting process.',
                     sold: 'Congratulations! This property is now officially marked as Sold Out under your name.'
                 };
 
@@ -107,10 +109,10 @@ export async function PATCH(req: Request) {
             }
         }
 
-        // Update Property availability if status is 'sold' or 'reserved'
-        if (['reserved', 'sold'].includes(status)) {
+        // Update Property availability if status is 'sold' or 'rented'
+        if (['rented', 'sold'].includes(status)) {
             try {
-                const propertyAvailability = status === 'sold' ? 'Sold' : 'Reserved';
+                const propertyAvailability = status === 'sold' ? 'Sold' : 'Rented';
                 await Property.findByIdAndUpdate(booking.propertyId, { availability: propertyAvailability });
                 console.log(`Property ${booking.propertyId} availability updated to ${propertyAvailability}`);
             } catch (propError) {
@@ -118,26 +120,9 @@ export async function PATCH(req: Request) {
             }
         }
 
-        // Generate WhatsApp Notification Link for Admin
-        const statusLabels: Record<string, string> = {
-            accepted: 'ACCEPTED',
-            reserved: 'RESERVED',
-            sold: 'SOLD OUT'
-        };
-
-        const whatsappMsg = `*STATUS UPDATE - SK ASSOCIATES*%0A%0A` +
-            `*Property:* ${encodeURIComponent(booking.propertyTitle)}%0A` +
-            `*Status:* ${encodeURIComponent(statusLabels[status] || status.toUpperCase())}%0A%0A` +
-            `Hello ${encodeURIComponent(booking.name)}, we have updated your booking status. %0A%0A` +
-            `*Next Steps:* Our team will be in touch shortly to finalize the details. %0A%0A` +
-            `Thank you for choosing SK Associates.`;
-
-        const whatsappLink = `https://wa.me/${booking.phone.replace(/[^0-9]/g, '')}?text=${whatsappMsg}`;
-
         return NextResponse.json({
             message: 'Booking status updated successfully',
-            booking,
-            whatsappLink
+            booking
         });
     } catch (error: any) {
         return NextResponse.json({ message: error.message || 'Error updating booking' }, { status: 500 });

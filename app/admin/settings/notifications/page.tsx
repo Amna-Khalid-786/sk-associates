@@ -62,7 +62,7 @@ export default function NotificationsSettings() {
     const Toggle = ({ active, onToggle, label, icon: Icon }: any) => (
         <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 group hover:bg-white hover:border-indigo-100 transition-all">
             <div className="flex items-center gap-4">
-                <div className={`p-2 rounded-xl ${active ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-500'}`}>
+                <div className={`p-2 rounded-xl ${active ? 'bg-gradient-to-r from-indigo-600 to-cyan-500 text-white' : 'bg-slate-200 text-slate-500'}`}>
                     <Icon className="w-5 h-5" />
                 </div>
                 <div>
@@ -73,7 +73,7 @@ export default function NotificationsSettings() {
             <button
                 type="button"
                 onClick={onToggle}
-                className={`w-12 h-6 rounded-full relative transition-colors ${active ? 'bg-indigo-600' : 'bg-slate-300'}`}
+                className={`w-12 h-6 rounded-full relative transition-colors ${active ? 'bg-gradient-to-r from-indigo-600 to-cyan-500' : 'bg-slate-300'}`}
             >
                 <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${active ? 'right-1' : 'left-1'}`} />
             </button>
@@ -145,7 +145,7 @@ export default function NotificationsSettings() {
                     <button
                         type="submit"
                         disabled={saving}
-                        className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-indigo-600 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-indigo-100"
+                        className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest hover:text-cyan-400 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/20"
                     >
                         {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                         Apply Notification Settings

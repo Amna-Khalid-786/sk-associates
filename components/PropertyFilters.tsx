@@ -56,31 +56,31 @@ const PropertyFilters = () => {
     return (
         <div className="flex flex-col gap-8">
             <div className="w-full">
-                <label className="block text-[11px] font-black text-slate-400 uppercase mb-3 px-1 tracking-wider">Search Keywords</label>
+                <label className="block text-[11px] font-black text-zinc-400 uppercase mb-3 px-1 tracking-wider">Search Keywords</label>
                 <div className="relative">
                     <input
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="e.g. DHA, Villa, 1 Kanal..."
-                        className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-indigo-500 transition-all outline-none shadow-sm"
+                        className="w-full bg-white border border-zinc-200 rounded-2xl px-5 py-4 text-sm focus:ring-1 focus:ring-black transition-all outline-none shadow-sm"
                     />
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300">
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-300">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                     </div>
                 </div>
             </div>
 
             <div className="w-full">
-                <label className="block text-[11px] font-black text-slate-400 uppercase mb-3 px-1 tracking-wider">Target City</label>
+                <label className="block text-[11px] font-black text-zinc-400 uppercase mb-3 px-1 tracking-wider">Target City</label>
                 <select
                     value={selectedCity}
                     onChange={(e) => {
                         setSelectedCity(e.target.value);
                         handleFilterChange('city', e.target.value);
                     }}
-                    className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer shadow-sm appearance-none"
-                    style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0\' stroke=\'%23cbd5e1\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.5em' }}
+                    className="w-full bg-white border border-zinc-200 rounded-2xl px-5 py-4 text-sm focus:ring-1 focus:ring-black outline-none cursor-pointer shadow-sm appearance-none"
+                    style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0\' stroke=\'%23a1a1aa\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.5em' }}
                 >
                     <option value="All">Across All Cities</option>
                     <option value="Islamabad">Islamabad</option>
@@ -90,7 +90,7 @@ const PropertyFilters = () => {
             </div>
 
             <div className="w-full">
-                <label className="block text-[11px] font-black text-slate-400 uppercase mb-3 px-1 tracking-wider">Property Type</label>
+                <label className="block text-[11px] font-black text-zinc-400 uppercase mb-3 px-1 tracking-wider">Property Type</label>
                 <div className="grid grid-cols-1 gap-2">
                     {['All', 'House', 'Plot', 'Commercial', 'Apartment'].map((type) => (
                         <button
@@ -100,8 +100,8 @@ const PropertyFilters = () => {
                                 handleFilterChange('type', type);
                             }}
                             className={`text-left px-5 py-3 rounded-xl text-sm font-bold transition-all border ${selectedType === type
-                                ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg shadow-indigo-100'
-                                : 'bg-white border-slate-100 text-slate-600 hover:border-indigo-200 hover:bg-slate-50'
+                                ? 'bg-black border-black text-white shadow-lg shadow-black/10'
+                                : 'bg-white border-zinc-100 text-zinc-600 hover:border-black hover:bg-zinc-50'
                                 }`}
                         >
                             {type === 'All' ? 'All Categories' : type}

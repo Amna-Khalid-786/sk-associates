@@ -53,11 +53,11 @@ function ResetPasswordContent() {
 
     if (!token) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-slate-950 p-6 text-center">
-                <div className="bg-slate-900/50 p-8 rounded-3xl border border-white/10 max-w-md">
+            <div className="min-h-screen flex items-center justify-center bg-black p-6 text-center">
+                <div className="bg-zinc-900/50 p-8 rounded-3xl border border-white/10 max-w-md">
                     <h1 className="text-2xl font-bold text-white mb-4">Invalid Link</h1>
-                    <p className="text-slate-400 mb-6">This password reset link appears to be invalid or has expired.</p>
-                    <button onClick={() => router.push('/forgot-password')} className="text-indigo-400 font-bold hover:underline">
+                    <p className="text-zinc-400 mb-6">This password reset link appears to be invalid or has expired.</p>
+                    <button onClick={() => router.push('/forgot-password')} className="text-white font-bold hover:underline">
                         Request a new link
                     </button>
                 </div>
@@ -66,19 +66,19 @@ function ResetPasswordContent() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-950">
+        <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
             {/* Background Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-950/90 to-indigo-950/50"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-black via-black/90 to-zinc-900/50"></div>
 
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="w-full max-w-md p-6 z-10"
             >
-                <div className="bg-slate-900/50 backdrop-blur-xl p-8 rounded-[2rem] border border-white/10 shadow-2xl">
+                <div className="bg-black/50 backdrop-blur-xl p-8 rounded-[2rem] border border-white/10 shadow-2xl">
                     <div className="text-center mb-8">
                         <h1 className="text-3xl font-black text-white mb-2">New Password</h1>
-                        <p className="text-slate-400 text-sm">Please enter your new password below.</p>
+                        <p className="text-zinc-400 text-sm">Please enter your new password below.</p>
                     </div>
 
                     {message && (
@@ -97,13 +97,13 @@ function ResetPasswordContent() {
                     {!message && (
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="space-y-2">
-                                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">New Password</label>
+                                <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">New Password</label>
                                 <div className="relative group">
-                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-white transition-colors" />
                                     <input
                                         type="password"
                                         required
-                                        className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-indigo-500 text-white outline-none transition-all"
+                                        className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-white/30 text-white outline-none transition-all"
                                         placeholder="••••••••"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
@@ -112,9 +112,9 @@ function ResetPasswordContent() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">Confirm Password</label>
+                                <label className="text-xs font-bold text-zinc-400 uppercase tracking-widest ml-1">Confirm Password</label>
                                 <div className="relative group">
-                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-white transition-colors" />
                                     <input
                                         type="password"
                                         required
@@ -130,7 +130,7 @@ function ResetPasswordContent() {
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 disabled={loading}
-                                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-4 rounded-2xl font-black shadow-xl shadow-indigo-500/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                                className="w-full bg-white text-black hover:bg-zinc-100 py-4 rounded-2xl font-black shadow-xl shadow-white/5 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
                             >
                                 {loading ? (
                                     <Loader2 className="w-6 h-6 animate-spin" />
@@ -153,7 +153,7 @@ export default function ResetPasswordPage() {
     return (
         <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center bg-slate-950">
-                <Loader2 className="w-12 h-12 animate-spin text-indigo-500" />
+                <Loader2 className="w-12 h-12 animate-spin text-indigo-400" />
             </div>
         }>
             <ResetPasswordContent />

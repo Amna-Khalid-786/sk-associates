@@ -64,7 +64,7 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                     </button>
                 )}
                 <div className="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-8 relative">
-                    <Lock className="w-10 h-10 text-indigo-600" />
+                    <Lock className="w-10 h-10 text-cyan-500" />
                     <div className="absolute inset-0 bg-indigo-600/5 rounded-full animate-ping"></div>
                 </div>
                 <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">Authentication Required</h3>
@@ -72,13 +72,13 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                 <div className="flex flex-col gap-4">
                     <Link
                         href="/login"
-                        className="w-full bg-slate-950 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-xl shadow-slate-900/10"
+                        className="w-full bg-slate-950 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-gradient-to-r hover:from-indigo-600 hover:to-cyan-500 transition-all shadow-xl shadow-slate-900/10"
                     >
                         Sign in to Continue
                     </Link>
                     <Link
                         href="/signup"
-                        className="text-indigo-600 font-bold text-sm hover:underline"
+                        className="text-cyan-500 font-bold text-sm hover:underline"
                     >
                         Create an account
                     </Link>
@@ -99,7 +99,7 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 mb-2">Request Received!</h3>
                 <p className="text-slate-500 mb-6">Our experts at SK Associates will contact you shortly.</p>
-                <div className="text-[10px] font-black uppercase tracking-widest text-indigo-600">
+                <div className="text-[10px] font-black uppercase tracking-widest text-cyan-500">
                     Premium Property Inquiry
                 </div>
             </motion.div>
@@ -119,7 +119,7 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
 
             <div className="mb-8">
                 <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-2">Book a Consultation</h3>
-                <p className="text-slate-500 text-sm font-medium">For: <span className="text-indigo-600 font-bold">{propertyTitle}</span></p>
+                <p className="text-slate-500 text-sm font-medium">For: <span className="text-cyan-500 font-bold">{propertyTitle}</span></p>
             </div>
 
             {error && (
@@ -194,7 +194,7 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
                     disabled={loading}
-                    className="w-full bg-slate-950 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-indigo-600 transition-all flex items-center justify-center gap-3 shadow-xl shadow-slate-900/10 disabled:opacity-50 mt-4"
+                    className="w-full bg-slate-950 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-gradient-to-r hover:from-indigo-600 hover:to-cyan-500 transition-all flex items-center justify-center gap-3 shadow-xl shadow-slate-900/10 disabled:opacity-50 mt-4"
                 >
                     {loading ? (
                         <Loader2 className="w-5 h-5 animate-spin" />

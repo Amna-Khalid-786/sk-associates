@@ -1,7 +1,7 @@
 
 import { Property } from '@/types';
 
-export const PROPERTIES: any[] = [
+export const PROPERTIES: Property[] = [
     {
         title: 'The Platinum Villa | Sector E-7',
         description: 'An architectural masterpiece offering unparalleled luxury. This smart home features a rooftop infinity pool and a private cinema.',

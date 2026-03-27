@@ -21,7 +21,7 @@ export interface Property {
     postedDate: string;
     features: string[];
     discount?: number;
-    availability?: 'Available' | 'Sold' | 'Reserved';
+    availability?: 'Available' | 'Sold' | 'Rented';
     marketAnalysis?: {
         rentalYield: string;
         sectorDemand: string;

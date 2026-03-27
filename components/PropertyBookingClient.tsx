@@ -78,7 +78,7 @@ export default function PropertyBookingClient({ property }: PropertyBookingClien
             <div className="fixed bottom-8 right-8 z-50 md:hidden">
                 <button
                     onClick={triggerBooking}
-                    className="w-16 h-16 bg-indigo-600 text-white rounded-full shadow-2xl flex items-center justify-center animate-bounce hover:bg-slate-950 transition-colors"
+                    className="w-16 h-16 bg-gradient-to-r from-indigo-600 to-cyan-500 text-white rounded-full shadow-2xl flex items-center justify-center animate-bounce hover:from-indigo-700 hover:to-cyan-600 transition-colors"
                 >
                     <span className="text-lg">🏡</span>
                 </button>

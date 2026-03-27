@@ -99,7 +99,7 @@ export default function AdminHistoryPage() {
                                         <tr key={booking._id} className="hover:bg-slate-50/50 transition-colors group">
                                             <td className="px-8 py-6">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                                                    <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 group-hover:bg-gradient-to-r group-hover:from-indigo-600 group-hover:to-cyan-500 group-hover:text-white transition-all">
                                                         <Calendar className="w-5 h-5" />
                                                     </div>
                                                     <div>

@@ -17,7 +17,7 @@ export interface IProperty extends Document {
     postedDate: Date;
     features?: string[];
     discount?: number;
-    availability: 'Available' | 'Sold' | 'Reserved';
+    availability: 'Available' | 'Sold' | 'Rented';
     marketAnalysis?: {
         rentalYield: string;
         sectorDemand: string;
@@ -49,7 +49,7 @@ const PropertySchema: Schema = new Schema({
     discount: { type: Number, default: 0 },
     availability: {
         type: String,
-        enum: ['Available', 'Sold', 'Reserved'],
+        enum: ['Available', 'Sold', 'Rented'],
         default: 'Available'
     },
     marketAnalysis: {

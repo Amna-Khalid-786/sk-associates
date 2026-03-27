@@ -63,17 +63,17 @@ export default async function PropertiesPage(props: {
     return (
         <div className="bg-white min-h-screen">
             {/* Header / Breadcrumb */}
-            <div className="bg-slate-50 border-b border-slate-100 py-12">
+            <div className="bg-zinc-50 border-b border-zinc-100 py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <nav className="flex items-center space-x-2 text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
-                                <Link href="/" className="hover:text-indigo-600 transition-colors">Home</Link>
+                            <nav className="flex items-center space-x-2 text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">
+                                <Link href="/" className="hover:text-black transition-colors">Home</Link>
                                 <span>/</span>
-                                <span className="text-slate-900">Properties</span>
+                                <span className="text-zinc-900">Properties</span>
                             </nav>
-                            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-                                Premium <span className="text-indigo-600">Inventory.</span>
+                            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-black via-zinc-600 to-zinc-400 pb-2">
+                                Premium Inventory.
                             </h1>
                         </div>
                     </div>
@@ -85,18 +85,19 @@ export default async function PropertiesPage(props: {
                     {/* Sticky Sidebar */}
                     <aside className="lg:w-80 flex-shrink-0">
                         <div className="sticky top-24">
-                            <div className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 mb-8">
-                                <h2 className="text-xl font-black text-slate-900 mb-8">Filter Search</h2>
+                            <div className="bg-zinc-50 p-8 rounded-[2.5rem] border border-zinc-100 mb-8">
+                                <h2 className="text-xl font-black text-zinc-900 mb-8">Filter Search</h2>
                                 <PropertyFilters />
                             </div>
 
                             {/* Promotional card in sidebar */}
-                            <div className="bg-indigo-600 p-8 rounded-[2.5rem] text-white shadow-xl shadow-indigo-200">
-                                <h3 className="text-xl font-bold mb-4">Need Help?</h3>
-                                <p className="text-indigo-100 text-sm mb-6 leading-relaxed">
+                            <div className="bg-black p-8 rounded-[2.5rem] text-white shadow-xl shadow-black/10 relative overflow-hidden group">
+                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                                <h3 className="text-xl font-bold mb-4 relative z-10">Need Help?</h3>
+                                <p className="text-zinc-400 text-sm mb-6 leading-relaxed relative z-10">
                                     Our expert advisors are ready to help you find the perfect property in the twin cities.
                                 </p>
-                                <Link href="/contact" className="inline-block bg-white text-indigo-600 font-bold px-6 py-3 rounded-xl text-sm hover:bg-slate-50 transition-colors w-full text-center">
+                                <Link href="/contact" className="inline-block bg-white text-black font-bold px-6 py-3 rounded-xl text-sm hover:bg-zinc-100 transition-colors w-full text-center relative z-10">
                                     Contact Advisor
                                 </Link>
                             </div>
@@ -114,13 +115,13 @@ export default async function PropertiesPage(props: {
                                 ))}
                             </div>
                         ) : (
-                            <div className="text-center py-32 bg-slate-50 rounded-[3rem] border-2 border-dashed border-slate-200">
+                            <div className="text-center py-32 bg-zinc-50 rounded-[3rem] border-2 border-dashed border-zinc-200">
                                 <div className="text-5xl mb-6">🔍</div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-2">No Properties Found</h3>
-                                <p className="text-slate-500 max-w-xs mx-auto mb-8">
+                                <h3 className="text-xl font-bold text-zinc-900 mb-2">No Properties Found</h3>
+                                <p className="text-zinc-500 max-w-xs mx-auto mb-8">
                                     We couldn&apos;t find any listings matching your current filters. Try adjusting your search.
                                 </p>
-                                <Link href="/properties" className="text-indigo-600 font-bold text-sm hover:underline">
+                                <Link href="/properties" className="text-black font-bold text-sm hover:underline">
                                     Reset all filters
                                 </Link>
                             </div>

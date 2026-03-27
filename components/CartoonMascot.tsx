@@ -44,7 +44,7 @@ const CartoonMascot = () => {
                     <motion.div
                         initial={{ scale: 0, opacity: 0, y: 10 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
-                        className="absolute -top-16 right-0 bg-indigo-600 text-white text-[10px] font-bold px-4 py-2 rounded-2xl rounded-br-none whitespace-nowrap shadow-xl"
+                        className="absolute -top-16 right-0 bg-black text-white text-[10px] font-black px-4 py-2 rounded-2xl rounded-br-none whitespace-nowrap shadow-2xl border border-white/10"
                     >
                         Need a home? I&apos;m here!
                     </motion.div>
@@ -52,13 +52,20 @@ const CartoonMascot = () => {
 
                 {/* Character Body (SVG) */}
                 <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="mascotGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#18181b" />
+                            <stop offset="100%" stopColor="#3f3f46" />
+                        </linearGradient>
+                    </defs>
+
                     {/* Shadow */}
                     <ellipse cx="40" cy="75" rx="20" ry="4" fill="black" fillOpacity="0.1" />
 
                     {/* Body */}
                     <motion.rect
                         x="15" y="20" width="50" height="50" rx="20"
-                        fill="#6366F1"
+                        fill="url(#mascotGradient)"
                         animate={{
                             height: isHovered ? [50, 45, 50] : 50,
                             y: isHovered ? [20, 25, 20] : 20
@@ -69,7 +76,7 @@ const CartoonMascot = () => {
                     {/* Left Wing/Arm */}
                     <motion.path
                         d="M15 45C5 45 5 35 15 35"
-                        stroke="#4338CA" strokeWidth="4" strokeLinecap="round"
+                        stroke="#18181b" strokeWidth="4" strokeLinecap="round"
                         animate={{ rotate: isHovered ? [0, -20, 0] : 0 }}
                         transition={{ duration: 0.3, repeat: Infinity }}
                     />
@@ -77,7 +84,7 @@ const CartoonMascot = () => {
                     {/* Right Wing/Arm */}
                     <motion.path
                         d="M65 45C75 45 75 35 65 35"
-                        stroke="#4338CA" strokeWidth="4" strokeLinecap="round"
+                        stroke="#18181b" strokeWidth="4" strokeLinecap="round"
                         animate={{ rotate: isHovered ? [0, 20, 0] : 0 }}
                         transition={{ duration: 0.3, repeat: Infinity }}
                     />
@@ -93,7 +100,7 @@ const CartoonMascot = () => {
                     {/* Mouth */}
                     <motion.path
                         d={isHovered ? "M30 55 Q40 65 50 55" : "M35 55 Q40 58 45 55"}
-                        stroke="#4338CA" strokeWidth="3" strokeLinecap="round" fill="none"
+                        stroke="#18181b" strokeWidth="3" strokeLinecap="round" fill="none"
                     />
                 </svg>
 

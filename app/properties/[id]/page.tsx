@@ -132,7 +132,7 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
                                         Book Now
                                     </BookingTrigger>
                                 </div>
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 rounded-full blur-3xl"></div>
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-cyan-500/20 to-indigo-500/20 rounded-full blur-3xl"></div>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-8">
@@ -237,7 +237,7 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
                                 ))}
                             </div>
                         </div>
-                        <div className="bg-indigo-600 rounded-[2.5rem] p-10 md:p-14 text-center shadow-2xl shadow-indigo-500/20">
+                        <div className="bg-gradient-to-br from-indigo-600 to-cyan-500 rounded-[2.5rem] p-10 md:p-14 text-center shadow-2xl shadow-cyan-500/20">
                             <h4 className="text-2xl font-black mb-6">Connect with a Specialist</h4>
                             <p className="text-indigo-100 mb-10 font-medium">Get a personalized investment roadmap and ROI projection for this specific unit.</p>
                             <BookingTrigger

@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased bg-slate-50 text-slate-900`}
+        className={`antialiased bg-white text-black`}
       >
         <AuthProvider>
           <Toaster position="top-center" />

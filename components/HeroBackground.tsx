@@ -22,7 +22,7 @@ const HeroBackground = () => {
     }, []);
 
     return (
-        <div className="absolute inset-0 z-0 overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 z-0 overflow-hidden bg-black">
             {images.map((img, index) => (
                 <div
                     key={img}
@@ -38,8 +38,8 @@ const HeroBackground = () => {
                 </div>
             ))}
             {/* Elegant Overlay Layer */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/20 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
         </div>
     );
 };

@@ -14,7 +14,7 @@ export default function AdminInsightsPage() {
             <div className="min-h-screen flex items-center justify-center bg-slate-50">
                 <div className="text-center p-8 bg-white rounded-3xl shadow-xl max-w-md">
                     <h2 className="text-2xl font-black text-slate-900 mb-4">Access Restricted</h2>
-                    <Link href="/login" className="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold">Login</Link>
+                    <Link href="/login" className="bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-700 hover:to-cyan-600 transition-all text-white px-8 py-3 rounded-xl font-bold">Login</Link>
                 </div>
             </div>
         );
@@ -56,7 +56,7 @@ export default function AdminInsightsPage() {
                             </div>
                             <h2 className="text-3xl font-black mb-6">Strategy Recommendation</h2>
                             <p className="text-slate-400 leading-relaxed mb-8 font-medium">Based on current booking velocity, we recommend increasing inventory in Sector G-13 and focusing on commercial units for the next quarter.</p>
-                            <button className="bg-indigo-600 text-white font-black px-10 py-4 rounded-2xl hover:bg-indigo-500 transition-all shadow-xl shadow-indigo-500/20 active:scale-95">
+                            <button className="bg-gradient-to-r from-indigo-600 to-cyan-500 text-white font-black px-10 py-4 rounded-2xl hover:from-indigo-700 hover:to-cyan-600 transition-all shadow-xl shadow-cyan-500/20 active:scale-95">
                                 Download Report
                             </button>
                         </div>

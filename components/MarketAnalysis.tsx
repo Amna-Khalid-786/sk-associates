@@ -2,10 +2,10 @@
 'use client';
 
 import React from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ReferenceLine } from 'recharts';
 import { MarketData } from '@/types';
+import { motion } from 'framer-motion';
 
-// Hardcoding for now as in original, or could be fetched
 const MARKET_TRENDS: MarketData[] = [
     { month: 'Oct', islamabad: 12, rawalpindi: 8, lahore: 10 },
     { month: 'Nov', islamabad: 15, rawalpindi: 9, lahore: 12 },
@@ -15,94 +15,161 @@ const MARKET_TRENDS: MarketData[] = [
     { month: 'Mar', islamabad: 22, rawalpindi: 15, lahore: 19 },
 ];
 
-const MarketAnalysis: React.FC = () => {
-    return (
-        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100" id="trends">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                <div>
-                    <h2 className="text-2xl font-bold text-slate-900">Price Appreciation Trends</h2>
-                    <p className="text-slate-500 text-sm">Percentage growth across major hubs in the last 6 months.</p>
-                </div>
-                <div className="flex space-x-2">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        High Growth Region: Islamabad
-                    </span>
+const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="bg-white/90 backdrop-blur-xl p-5 rounded-3xl shadow-2xl border border-white/60">
+                <p className="text-zinc-900 font-black mb-3 border-b border-zinc-100 pb-2">{label}</p>
+                <div className="space-y-2">
+                    {payload.map((entry: any, index: number) => (
+                        <div key={index} className="flex items-center justify-between gap-8">
+                            <span className="flex items-center gap-2">
+                                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: entry.color }}></div>
+                                <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">{entry.name}</span>
+                            </span>
+                            <span className="text-sm font-black text-zinc-900">+{entry.value}%</span>
+                        </div>
+                    ))}
                 </div>
             </div>
+        );
+    }
+    return null;
+};
 
-            <div className="h-[350px] w-full min-h-[350px]">
-                <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={MARKET_TRENDS} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+const MarketAnalysis: React.FC = () => {
+    const [isMounted, setIsMounted] = React.useState(false);
+
+    React.useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        return (
+            <div className="bg-white p-10 rounded-[3rem] shadow-xl shadow-zinc-200/50 border border-zinc-100 h-[600px] flex items-center justify-center">
+                <div className="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-white p-10 rounded-[3rem] shadow-xl shadow-zinc-200/50 border border-zinc-100 relative overflow-hidden min-w-0"
+            id="trends"
+        >
+            {/* Subtle Texture Background */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6 relative z-10">
+                {/* Header elements removed for cleaner look */}
+            </div>
+
+            <div className="h-[400px] w-full relative z-10 min-w-0">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+                    <AreaChart data={MARKET_TRENDS} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
                         <defs>
+                            <filter id="shadow" height="200%">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                                <feOffset dx="0" dy="10" result="offsetblur" />
+                                <feComponentTransfer>
+                                    <feFuncA type="linear" slope="0.2" />
+                                </feComponentTransfer>
+                                <feMerge>
+                                    <feMergeNode />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
                             <linearGradient id="colorIsb" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.1} />
-                                <stop offset="95%" stopColor="#4f46e5" stopOpacity={0} />
+                                <stop offset="5%" stopColor="#000000" stopOpacity={0.3} />
+                                <stop offset="95%" stopColor="#000000" stopOpacity={0} />
                             </linearGradient>
                             <linearGradient id="colorLhr" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#10b981" stopOpacity={0.1} />
-                                <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                                <stop offset="5%" stopColor="#27272a" stopOpacity={0.3} />
+                                <stop offset="95%" stopColor="#27272a" stopOpacity={0} />
                             </linearGradient>
                             <linearGradient id="colorRwp" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.1} />
-                                <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                                <stop offset="5%" stopColor="#71717a" stopOpacity={0.3} />
+                                <stop offset="95%" stopColor="#71717a" stopOpacity={0} />
                             </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                        <XAxis dataKey="month" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}%`} />
-                        <Tooltip
-                            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                        <CartesianGrid strokeDasharray="8 8" vertical={false} stroke="#f4f4f5" />
+                        <XAxis
+                            dataKey="month"
+                            stroke="#d4d4d8"
+                            fontSize={12}
+                            tickLine={false}
+                            axisLine={false}
+                            tick={{ dy: 10, fontWeight: 700 }}
                         />
+                        <YAxis
+                            stroke="#d4d4d8"
+                            fontSize={12}
+                            tickLine={false}
+                            axisLine={false}
+                            tickFormatter={(value) => `${value}%`}
+                            tick={{ dx: -10, fontWeight: 700 }}
+                        />
+                        <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#f4f4f5', strokeWidth: 2, strokeDasharray: '5 5' }} />
                         <Legend verticalAlign="top" height={36} iconType="circle" />
+
                         <Area
                             type="monotone"
                             dataKey="islamabad"
                             name="Islamabad"
-                            stroke="#4f46e5"
-                            strokeWidth={3}
+                            stroke="#000000"
+                            strokeWidth={4}
                             fillOpacity={1}
                             fill="url(#colorIsb)"
+                            filter="url(#shadow)"
+                            animationDuration={2000}
                         />
                         <Area
                             type="monotone"
                             dataKey="lahore"
                             name="Lahore"
-                            stroke="#10b981"
-                            strokeWidth={3}
+                            stroke="#27272a"
+                            strokeWidth={4}
                             fillOpacity={1}
                             fill="url(#colorLhr)"
+                            filter="url(#shadow)"
+                            animationDuration={2500}
                         />
                         <Area
                             type="monotone"
                             dataKey="rawalpindi"
                             name="Rawalpindi"
-                            stroke="#f59e0b"
-                            strokeWidth={3}
+                            stroke="#71717a"
+                            strokeWidth={4}
                             fillOpacity={1}
                             fill="url(#colorRwp)"
+                            filter="url(#shadow)"
+                            animationDuration={3000}
                         />
                     </AreaChart>
                 </ResponsiveContainer>
             </div>
 
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="p-4 bg-indigo-50 rounded-2xl">
-                    <p className="text-xs text-indigo-600 font-bold uppercase tracking-wider mb-1">Islamabad</p>
-                    <p className="text-2xl font-bold text-indigo-900">+22.4%</p>
-                    <p className="text-xs text-indigo-700">Year-on-year growth in DHA</p>
+            <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 relative z-10">
+                <div className="p-6 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-black transition-all hover:bg-white group">
+                    <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-700 text-[10px] font-black uppercase tracking-widest mb-4">Islamabad</div>
+                    <div className="text-3xl font-black text-zinc-900 mb-1">+22.4%</div>
+                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-tight">Year-on-year growth</p>
                 </div>
-                <div className="p-4 bg-emerald-50 rounded-2xl">
-                    <p className="text-xs text-emerald-600 font-bold uppercase tracking-wider mb-1">Lahore</p>
-                    <p className="text-2xl font-bold text-emerald-900">+19.1%</p>
-                    <p className="text-xs text-emerald-700">Year-on-year growth in Gulberg</p>
+                <div className="p-6 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-zinc-400 transition-all hover:bg-white group">
+                    <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-zinc-200 text-zinc-800 text-[10px] font-black uppercase tracking-widest mb-4">Lahore</div>
+                    <div className="text-3xl font-black text-zinc-900 mb-1">+19.1%</div>
+                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-tight">Year-on-year growth</p>
                 </div>
-                <div className="p-4 bg-amber-50 rounded-2xl">
-                    <p className="text-xs text-amber-600 font-bold uppercase tracking-wider mb-1">Rawalpindi</p>
-                    <p className="text-2xl font-bold text-amber-900">+15.8%</p>
-                    <p className="text-xs text-amber-700">Year-on-year growth in Bahria</p>
+                <div className="p-6 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-zinc-300 transition-all hover:bg-white group">
+                    <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-zinc-300 text-zinc-900 text-[10px] font-black uppercase tracking-widest mb-4">Rawalpindi</div>
+                    <div className="text-3xl font-black text-zinc-900 mb-1">+15.8%</div>
+                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-tight">Year-on-year growth</p>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

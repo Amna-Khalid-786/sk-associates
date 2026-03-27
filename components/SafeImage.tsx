@@ -1,8 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
-interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+interface SafeImageProps {
+    src?: string;
+    alt?: string;
+    className?: string;
     fallbackSrc?: string;
 }
 
@@ -18,48 +22,31 @@ const SafeImage: React.FC<SafeImageProps> = ({
     alt,
     fallbackSrc,
     className,
-    ...props
 }) => {
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const imgRef = useRef<HTMLImageElement>(null);
 
-    // Get a semi-random fallback based on alt text if not provided
     const getFallback = () => {
         if (fallbackSrc) return fallbackSrc;
         const index = alt ? alt.length % FALLBACK_IMAGES.length : 0;
         return FALLBACK_IMAGES[index];
     };
 
-    // Reset state when src changes
-    useEffect(() => {
-        setHasError(false);
-        setIsLoading(true);
-
-        // Check if image is already cached
-        if (imgRef.current?.complete) {
-            if (imgRef.current.naturalWidth > 0) {
-                setIsLoading(false);
-            } else {
-                setHasError(true);
-                setIsLoading(false);
-            }
-        }
-    }, [src]);
+    const imgSrc = src && src !== '' ? src : getFallback();
 
     return (
         <div className={`relative w-full h-full overflow-hidden ${className}`}>
             {isLoading && (
-                <div className="absolute inset-0 bg-slate-100 animate-pulse flex items-center justify-center z-10">
+                <div className="absolute inset-0 bg-slate-100 flex items-center justify-center z-10 transition-opacity duration-300">
                     <div className="w-8 h-8 border-2 border-indigo-600/20 border-t-indigo-600 rounded-full animate-spin" />
                 </div>
             )}
-            <img
-                {...props}
-                ref={imgRef}
-                src={hasError ? getFallback() : src}
-                alt={alt}
-                className={`w-full h-full object-cover transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+            <Image
+                src={hasError ? getFallback() : imgSrc}
+                alt={alt || 'Image'}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className={`object-cover transition-all duration-700 ease-in-out ${isLoading ? 'scale-105 blur-sm opacity-0' : 'scale-100 blur-0 opacity-100'}`}
                 onLoad={() => setIsLoading(false)}
                 onError={() => {
                     setHasError(true);

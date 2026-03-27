@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Loader2, LogIn, Mail, Lock, ArrowRight, CheckCircle2, Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
 
 function LoginContent() {
     const [formData, setFormData] = useState({
@@ -56,15 +57,17 @@ function LoginContent() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-950">
+        <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
-                <img
+                <Image
                     src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
                     alt="Real Estate Background"
-                    className="w-full h-full object-cover opacity-30 scale-105 animate-pulse-slow"
+                    fill
+                    className="object-cover opacity-30 scale-105 animate-pulse-slow"
+                    priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-950/80 to-indigo-950/50"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-black via-black/80 to-zinc-900/50"></div>
             </div>
 
             {/* Floating Decorative Elements */}
@@ -72,12 +75,12 @@ function LoginContent() {
                 <motion.div
                     animate={{ y: [0, -30, 0], opacity: [0.1, 0.2, 0.1] }}
                     transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-[10%] left-[5%] w-96 h-96 bg-indigo-500 rounded-full blur-[120px]"
+                    className="absolute top-[10%] left-[5%] w-96 h-96 bg-zinc-700 rounded-full blur-[120px]"
                 />
                 <motion.div
                     animate={{ y: [0, 30, 0], opacity: [0.05, 0.15, 0.05] }}
                     transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-purple-500 rounded-full blur-[150px]"
+                    className="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-zinc-800 rounded-full blur-[150px]"
                 />
             </div>
 
@@ -91,7 +94,7 @@ function LoginContent() {
                     {/* Top Branding */}
                     <div className="text-center mb-10">
                         <h2 className="text-4xl font-extrabold text-white tracking-tight mb-3">Welcome Back</h2>
-                        <p className="text-slate-400 font-medium">Continue your journey with SK Associates</p>
+                        <p className="text-zinc-400 font-medium">Continue your journey with SK Associates</p>
                     </div>
 
                     {success && (
@@ -117,13 +120,13 @@ function LoginContent() {
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-300 ml-1 tracking-wide uppercase">Email Address</label>
+                            <label className="text-sm font-bold text-zinc-300 ml-1 tracking-wide uppercase">Email Address</label>
                             <div className="relative group">
-                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-white transition-colors" />
                                 <input
                                     type="email"
                                     required
-                                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-indigo-500 focus:bg-white/10 text-white outline-none transition-all placeholder:text-slate-600"
+                                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-white/30 focus:bg-white/10 text-white outline-none transition-all placeholder:text-zinc-600"
                                     placeholder="name@company.com"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -133,20 +136,20 @@ function LoginContent() {
 
                         <div className="space-y-2">
                             <div className="flex justify-between items-center ml-1">
-                                <label className="text-sm font-bold text-slate-300 tracking-wide uppercase">Password</label>
+                                <label className="text-sm font-bold text-zinc-300 tracking-wide uppercase">Password</label>
                                 <Link
                                     href="/forgot-password"
-                                    className="text-xs text-indigo-400 hover:text-indigo-300 font-bold"
+                                    className="text-xs text-zinc-400 hover:text-white font-bold"
                                 >
                                     Forgot Password?
                                 </Link>
                             </div>
                             <div className="relative group">
-                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500 group-focus-within:text-white transition-colors" />
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     required
-                                    className="w-full pl-12 pr-12 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-indigo-500 focus:bg-white/10 text-white outline-none transition-all placeholder:text-slate-600 [appearance:textfield] [&::-ms-reveal]:hidden [&::-ms-clear]:hidden [&::-webkit-password-reveal]:hidden"
+                                    className="w-full pl-12 pr-12 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-white/30 focus:bg-white/10 text-white outline-none transition-all placeholder:text-zinc-600 [appearance:textfield] [&::-ms-reveal]:hidden [&::-ms-clear]:hidden [&::-webkit-password-reveal]:hidden"
                                     placeholder="••••••••"
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -154,7 +157,7 @@ function LoginContent() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-400 transition-colors focus:outline-none"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors focus:outline-none"
                                 >
                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                 </button>
@@ -165,7 +168,7 @@ function LoginContent() {
                             whileHover={{ scale: 1.01, translateY: -2 }}
                             whileTap={{ scale: 0.99 }}
                             disabled={loading}
-                            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-indigo-500/20 transition-all flex items-center justify-center gap-3 mt-6 disabled:opacity-50"
+                            className="w-full bg-white text-black hover:bg-zinc-100 py-4 rounded-2xl font-black text-lg shadow-xl shadow-white/5 transition-all flex items-center justify-center gap-3 mt-6 disabled:opacity-50"
                         >
                             {loading ? (
                                 <Loader2 className="w-6 h-6 animate-spin" />
@@ -178,9 +181,9 @@ function LoginContent() {
                     </form>
 
                     <div className="mt-10 text-center">
-                        <p className="text-slate-400 font-medium">
+                        <p className="text-zinc-400 font-medium">
                             First time here?{' '}
-                            <Link href="/signup" className="text-white font-bold hover:text-indigo-400 transition-colors underline decoration-indigo-500/30 underline-offset-4">
+                            <Link href="/signup" className="text-white font-bold hover:text-zinc-300 transition-colors underline decoration-white/30 underline-offset-4">
                                 Create an account
                             </Link>
                         </p>
@@ -194,8 +197,8 @@ function LoginContent() {
 export default function LoginPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen flex items-center justify-center bg-slate-950">
-                <Loader2 className="w-12 h-12 animate-spin text-indigo-500" />
+            <div className="min-h-screen flex items-center justify-center bg-black">
+                <Loader2 className="w-12 h-12 animate-spin text-white" />
             </div>
         }>
             <LoginContent />

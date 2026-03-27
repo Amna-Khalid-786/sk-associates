@@ -56,20 +56,22 @@ const testimonials = [
 // ─── Single Card ──────────────────────────────────────────────────────────────
 function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
     return (
-        <div className="flex-shrink-0 w-[360px] bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm mx-4 group hover:shadow-xl hover:-translate-y-1 transition-all duration-500">
+        <div className="flex-shrink-0 w-[360px] bg-white p-8 rounded-[2rem] border border-zinc-100 shadow-sm mx-4 group hover:shadow-xl hover:-translate-y-1 transition-all duration-500">
             <div className="flex items-center space-x-4 mb-6">
-                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-indigo-100 flex-shrink-0">
-                    <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
+                <div className="w-12 h-12 rounded-full p-[2px] bg-black flex-shrink-0">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                        <img src={t.avatar} alt={t.name} className="w-full h-full object-cover" />
+                    </div>
                 </div>
                 <div>
-                    <h4 className="font-bold text-slate-900 text-sm">{t.name}</h4>
-                    <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">{t.role}</p>
+                    <h4 className="font-bold text-black text-sm">{t.name}</h4>
+                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-wider">{t.role}</p>
                 </div>
             </div>
-            <div className="text-amber-400 mb-4 flex space-x-0.5 text-sm">
+            <div className="text-black mb-4 flex space-x-0.5 text-sm">
                 {[...Array(5)].map((_, s) => <span key={s}>★</span>)}
             </div>
-            <p className="text-slate-600 leading-relaxed font-medium italic text-sm">
+            <p className="text-zinc-600 leading-relaxed font-medium italic text-sm">
                 &quot;{t.content}&quot;
             </p>
         </div>
@@ -101,13 +103,13 @@ const Testimonials = () => {
     const row2 = testimonials.slice(4);
 
     return (
-        <section className="py-24 bg-slate-50 relative overflow-hidden">
+        <section className="py-24 bg-white relative overflow-hidden">
             {/* Header */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16 space-y-4">
-                    <h2 className="text-xs font-black text-indigo-600 uppercase tracking-[0.3em]">Client Voices</h2>
-                    <h3 className="text-4xl font-black text-slate-900 tracking-tight">Trusted by Industry Leaders</h3>
-                    <p className="text-slate-500 font-medium max-w-xl mx-auto">
+                    <h2 className="text-xs font-black text-zinc-400 uppercase tracking-[0.3em]">Client Voices</h2>
+                    <h3 className="text-4xl font-black tracking-tight text-black pb-2">Trusted by Industry Leaders</h3>
+                    <p className="text-zinc-500 font-medium max-w-xl mx-auto">
                         Hear from the families, investors, and businesses who chose SK Associates.
                     </p>
                 </div>
@@ -115,8 +117,8 @@ const Testimonials = () => {
 
             {/* Edge fades */}
             <div className="relative">
-                <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-r from-slate-50 to-transparent" />
-                <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-l from-slate-50 to-transparent" />
+                <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-r from-white to-transparent" />
+                <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-l from-white to-transparent" />
 
                 {/* Row 1 — scrolls left */}
                 <MarqueeRow items={row1} />
@@ -129,7 +131,7 @@ const Testimonials = () => {
             </div>
 
             {/* Background blob */}
-            <div className="absolute top-1/2 left-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl -ml-32 pointer-events-none" />
+            <div className="absolute top-1/2 left-0 w-64 h-64 bg-zinc-100 rounded-full blur-3xl -ml-32 pointer-events-none" />
 
             {/* Keyframes injected as a style tag */}
             <style>{`

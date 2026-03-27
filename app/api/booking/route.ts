@@ -25,7 +25,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Property not found' }, { status: 404 });
         }
 
-        if (property.availability === 'Sold' || property.availability === 'Reserved') {
+        if (property.availability === 'Sold' || property.availability === 'Rented') {
             return NextResponse.json(
                 {
                     error: `Sorry for the inconvenience, this property is already ${property.availability.toLowerCase()}.`,
