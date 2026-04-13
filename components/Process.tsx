@@ -7,117 +7,129 @@ const steps = [
     {
         num: '01',
         title: 'Initial Concept',
-        description: 'Deep-dive consultation to understand your lifestyle and aesthetic requirements.',
+        description: 'Discovery & Vision planning focusing on your unique lifestyle.',
+        color: 'bg-black',
+        textColor: 'text-white',
+        position: 'top-0 left-0 rounded-tl-full',
+        hover: 'hover:-translate-x-2 hover:-translate-y-2'
     },
     {
         num: '02',
         title: 'Bespoke Design',
-        description: 'Our world-class architects draft your future home using 3D modeling and sustainable principles.',
+        description: 'World-class architectural drafting with sustainable 3D modeling.',
+        color: 'bg-zinc-900',
+        textColor: 'text-white',
+        position: 'top-0 right-0 rounded-tr-full',
+        hover: 'hover:translate-x-2 hover:-translate-y-2'
     },
     {
         num: '03',
         title: 'Elite Construction',
-        description: 'Precision engineering and premium materials ensure your legacy stands the test of time.',
+        description: 'Precision engineering ensuring structural integrity and longevity.',
+        color: 'bg-white',
+        textColor: 'text-black',
+        position: 'bottom-0 right-0 rounded-br-full border border-zinc-100',
+        hover: 'hover:translate-x-2 hover:translate-y-2'
     },
     {
         num: '04',
         title: 'Handover',
-        description: 'A seamless transition into your new life, with white-glove service at every stage.',
+        description: 'A seamless transition with white-glove support and services.',
+        color: 'bg-zinc-100',
+        textColor: 'text-black',
+        position: 'bottom-0 left-0 rounded-bl-full',
+        hover: 'hover:-translate-x-2 hover:translate-y-2'
     },
 ];
 
 const Process = () => {
     return (
-        <section className="py-24 md:py-32 bg-white overflow-hidden relative selection:bg-black/30">
-            {/* Elegant Background Elements */}
-            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-zinc-100/40 rounded-full blur-[120px] -mr-64 -mt-64 pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-zinc-100/40 rounded-full blur-[100px] -ml-64 -mb-64 pointer-events-none"></div>
-
+        <section className="py-24 md:py-40 bg-[#fafafa] overflow-hidden relative selection:bg-black/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center max-w-3xl mx-auto mb-20 md:mb-32">
+                {/* Header */}
+                <div className="text-center max-w-2xl mx-auto mb-20 md:mb-32">
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-[10px] sm:text-xs font-black text-zinc-400 uppercase tracking-[0.3em] mb-4"
+                        className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.4em] mb-4"
                     >
                         Our Methodology
                     </motion.h2>
                     <motion.h3
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-5xl lg:text-6xl font-black text-black tracking-tighter mb-6"
+                        className="text-4xl md:text-5xl font-black tracking-tight text-black"
                     >
-                        Crafting Dreams <br className="hidden sm:block" />
-                        <span className="text-black">
-                            Step by Step.
-                        </span>
+                        Crafting Dreams <span className="text-zinc-400">Step by Step.</span>
                     </motion.h3>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="text-zinc-600 text-base md:text-lg font-medium leading-relaxed max-w-2xl mx-auto"
-                    >
-                        We follow a rigorous, transparent process to ensure every project exceeds international standards.
-                    </motion.p>
                 </div>
 
-                {/* Vertical Timeline Design */}
-                <div className="relative max-w-4xl mx-auto">
-                    {/* Connecting Line */}
-                    <div className="absolute left-[28px] md:left-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-black/10 via-zinc-400/10 to-transparent md:-translate-x-1/2"></div>
+                {/* Infographic Container */}
+                <div className="relative max-w-[800px] mx-auto hidden md:block">
+                    {/* The Circle */}
+                    <div className="aspect-square w-full relative p-4">
+                        {steps.map((step, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.8, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                                className={`absolute w-1/2 h-1/2 flex flex-col transition-all duration-700 ${step.color} ${step.textColor} ${step.position} ${step.hover} group shadow-2xl
+                                    ${i === 0 ? 'justify-end items-end p-20' : ''}
+                                    ${i === 1 ? 'justify-end items-start p-20' : ''}
+                                    ${i === 2 ? 'justify-start items-start p-20' : ''}
+                                    ${i === 3 ? 'justify-start items-end p-20' : ''}
+                                `}
+                            >
+                                <div className={`max-w-[200px] ${i === 0 || i === 3 ? 'text-right' : 'text-left'}`}>
+                                    <span className={`text-4xl font-black mb-2 block ${i >= 2 ? 'text-zinc-200' : 'text-zinc-800 opacity-50'}`}>{step.num}</span>
+                                    <h4 className="text-lg font-black mb-2 tracking-tight uppercase tracking-widest leading-tight">{step.title}</h4>
+                                    <p className={`text-[11px] font-bold leading-relaxed ${i >= 2 ? 'text-zinc-500' : 'text-zinc-400'}`}>
+                                        {step.description}
+                                    </p>
+                                </div>
+                                
+                                {/* Interlock circles (Puzzle look) */}
+                                {i === 0 && <div className="absolute right-0 top-1/3 -translate-y-1/2 translate-x-1/2 w-8 h-8 rounded-full bg-black z-20 shadow-lg"></div>}
+                                {i === 1 && <div className="absolute left-1/3 bottom-0 -translate-x-1/2 translate-y-1/2 w-8 h-8 rounded-full bg-zinc-900 z-20 shadow-lg"></div>}
+                                {i === 2 && <div className="absolute left-0 top-2/3 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white z-20 border border-zinc-100 shadow-md"></div>}
+                                {i === 3 && <div className="absolute right-2/3 top-0 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-zinc-100 z-20 shadow-md"></div>}
+                            </motion.div>
+                        ))}
 
-                    <div className="flex flex-col gap-12 md:gap-24 relative">
-                        {steps.map((step, i) => {
-                            const isEven = i % 2 === 0;
-
-                            return (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-100px" }}
-                                    transition={{ duration: 0.7, delay: i * 0.1 }}
-                                    className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-16 group ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'
-                                        }`}
-                                >
-                                    {/* Timeline Node */}
-                                    <div className="absolute left-0 md:left-1/2 w-14 h-14 rounded-full bg-white border-4 border-zinc-50 shadow-[0_0_0_2px_rgba(0,0,0,0.05)] flex items-center justify-center -translate-x-0 md:-translate-x-1/2 group-hover:border-black group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(0,0,0,0.1)] transition-all duration-500 z-10">
-                                        <div className="w-4 h-4 rounded-full bg-zinc-200 group-hover:bg-black transition-colors duration-500"></div>
-                                    </div>
-
-                                    {/* Card Content - Left Side */}
-                                    <div className={`w-full md:w-1/2 pl-24 md:pl-0 ${isEven ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}>
-                                        <div className="bg-white p-8 md:p-10 rounded-3xl border border-zinc-100 shadow-[0_20px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-
-                                            {/* Decorative Number Badge */}
-                                            <div className={`inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-black tracking-widest uppercase mb-6 bg-zinc-50 text-black border border-zinc-100 group-hover:bg-black group-hover:text-white transition-colors duration-500`}>
-                                                Phase {step.num}
-                                            </div>
-
-                                            <h4 className="text-2xl md:text-3xl font-bold text-black mb-4 tracking-tight group-hover:text-zinc-600 transition-colors duration-500">
-                                                {step.title}
-                                            </h4>
-
-                                            <p className="text-zinc-600 text-base leading-relaxed group-hover:text-zinc-700 transition-colors duration-500">
-                                                {step.description}
-                                            </p>
-
-                                            {/* Interactive Hover Gradient */}
-                                            <div className={`absolute -inset-1 bg-gradient-to-r from-black/0 via-black/5 to-zinc-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700 ${isEven ? 'right-0 origin-right' : 'left-0 origin-left'}`}></div>
-                                        </div>
-                                    </div>
-
-                                    {/* Empty space for alternating layout on desktop */}
-                                    <div className="hidden md:block md:w-1/2"></div>
-                                </motion.div>
-                            );
-                        })}
+                        {/* Central Anchor */}
+                        <div className="absolute inset-0 m-auto w-44 h-44 rounded-full bg-[#fafafa] z-30 flex items-center justify-center p-4 border-[12px] border-white shadow-2xl">
+                            <div className="text-center">
+                                <span className="text-[12px] font-black text-black uppercase tracking-widest block mb-1">SK</span>
+                                <div className="w-10 h-px bg-zinc-200 mx-auto my-3"></div>
+                                <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.3em] block italic">Methodology</span>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                {/* Mobile Fallback - Vertical List */}
+                <div className="flex flex-col gap-6 md:hidden">
+                    {steps.map((step, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                            className={`p-10 rounded-3xl ${step.color} ${step.textColor} ${i === 2 ? 'border border-zinc-100' : ''}`}
+                        >
+                            <span className="text-sm font-black uppercase tracking-widest opacity-50 mb-4 block">Phase {step.num}</span>
+                            <h4 className="text-2xl font-bold mb-3 tracking-tight">{step.title}</h4>
+                            <p className={`text-sm font-medium leading-relaxed ${i >= 2 ? 'text-zinc-600' : 'text-zinc-400'}`}>
+                                {step.description}
+                            </p>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </section>
@@ -125,3 +137,7 @@ const Process = () => {
 };
 
 export default Process;
+
+
+
+

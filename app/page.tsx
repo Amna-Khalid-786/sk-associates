@@ -47,7 +47,7 @@ export default async function Home() {
   return (
     <div className="animate-in fade-in duration-700">
       {/* Hero Section */}
-      <section className="relative h-[90vh] min-h-[700px] flex items-center overflow-hidden bg-black perspective-1000">
+      <section className="relative h-[90vh] min-h-[700px] flex items-center overflow-hidden perspective-1000">
         {/* Animated Background Slideshow */}
         <HeroBackground />
 
