@@ -11,14 +11,14 @@ const steps = [
         color: 'bg-black',
         textColor: 'text-white',
         position: 'top-0 left-0 rounded-tl-full',
-        hover: 'hover:-translate-x-2 hover:-translate-y-2'
+        hover: 'hover:translate-x-2 hover:translate-y-2'
     },
     {
         num: '02',
         title: 'Bespoke Design',
         description: 'World-class architectural drafting with sustainable 3D modeling.',
-        color: 'bg-zinc-900',
-        textColor: 'text-white',
+        color: 'bg-zinc-100',
+        textColor: 'text-black',
         position: 'top-0 right-0 rounded-tr-full',
         hover: 'hover:translate-x-2 hover:-translate-y-2'
     },
@@ -26,8 +26,8 @@ const steps = [
         num: '03',
         title: 'Elite Construction',
         description: 'Precision engineering ensuring structural integrity and longevity.',
-        color: 'bg-white',
-        textColor: 'text-black',
+        color: 'bg-black',
+        textColor: 'text-white',
         position: 'bottom-0 right-0 rounded-br-full border border-zinc-100',
         hover: 'hover:translate-x-2 hover:translate-y-2'
     },
@@ -86,13 +86,13 @@ const Process = () => {
                                 `}
                             >
                                 <div className={`max-w-[200px] ${i === 0 || i === 3 ? 'text-right' : 'text-left'}`}>
-                                    <span className={`text-4xl font-black mb-2 block ${i >= 2 ? 'text-zinc-200' : 'text-zinc-800 opacity-50'}`}>{step.num}</span>
+                                    <span className={`text-4xl font-black mb-2 block ${i === 0 || i === 2 ? 'text-white/30' : 'text-black/20'}`}>{step.num}</span>
                                     <h4 className="text-lg font-black mb-2 tracking-tight uppercase tracking-widest leading-tight">{step.title}</h4>
                                     <p className={`text-[11px] font-bold leading-relaxed ${i >= 2 ? 'text-zinc-500' : 'text-zinc-400'}`}>
                                         {step.description}
                                     </p>
                                 </div>
-                                
+
                                 {/* Interlock circles (Puzzle look) */}
                                 {i === 0 && <div className="absolute right-0 top-1/3 -translate-y-1/2 translate-x-1/2 w-8 h-8 rounded-full bg-black z-20 shadow-lg"></div>}
                                 {i === 1 && <div className="absolute left-1/3 bottom-0 -translate-x-1/2 translate-y-1/2 w-8 h-8 rounded-full bg-zinc-900 z-20 shadow-lg"></div>}
@@ -104,9 +104,8 @@ const Process = () => {
                         {/* Central Anchor */}
                         <div className="absolute inset-0 m-auto w-44 h-44 rounded-full bg-[#fafafa] z-30 flex items-center justify-center p-4 border-[12px] border-white shadow-2xl">
                             <div className="text-center">
-                                <span className="text-[12px] font-black text-black uppercase tracking-widest block mb-1">SK</span>
-                                <div className="w-10 h-px bg-zinc-200 mx-auto my-3"></div>
-                                <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-[0.3em] block italic">Methodology</span>
+                                <span className="text-[18px] font-black text-black uppercase tracking-widest block leading-tight">SK</span>
+                                <span className="text-[18px] font-black text-black uppercase tracking-widest block leading-tight">ASSOCIATES</span>
                             </div>
                         </div>
                     </div>

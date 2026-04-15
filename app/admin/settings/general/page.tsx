@@ -66,7 +66,7 @@ export default function GeneralSettings() {
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+                <Loader2 className="w-8 h-8 animate-spin text-black" />
             </div>
         );
     }
@@ -74,16 +74,16 @@ export default function GeneralSettings() {
     return (
         <div className="min-h-screen bg-slate-50 p-6 md:p-12">
             <div className="max-w-3xl mx-auto space-y-10">
-                <Link href="/admin/settings" className="inline-flex items-center gap-2 text-slate-400 hover:text-indigo-600 transition-colors font-bold uppercase text-[10px] tracking-widest">
+                <Link href="/admin/settings" className="inline-flex items-center gap-2 text-slate-400 hover:text-black transition-colors font-bold uppercase text-[10px] tracking-widest">
                     <ArrowLeft className="w-4 h-4" /> Back to Settings
                 </Link>
 
                 <header>
                     <div className="flex items-center gap-4 mb-2">
-                        <div className="p-3 bg-gradient-to-r from-indigo-600 to-cyan-500 rounded-2xl text-white">
+                        <div className="p-3 bg-black rounded-2xl text-white">
                             <Globe className="w-6 h-6" />
                         </div>
-                        <h1 className="text-4xl font-black text-slate-900 tracking-tight">General <span className="text-indigo-600">Settings.</span></h1>
+                        <h1 className="text-4xl font-black text-slate-900 tracking-tight">General <span className="text-zinc-500">Settings.</span></h1>
                     </div>
                     <p className="text-slate-500 font-medium">Manage your site identity and contact preferences</p>
                 </header>
@@ -96,7 +96,7 @@ export default function GeneralSettings() {
                                 type="text"
                                 value={config.siteName}
                                 onChange={(e) => setConfig({ ...config, siteName: e.target.value })}
-                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold text-slate-900"
+                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black focus:bg-white transition-all font-bold text-slate-900"
                             />
                         </div>
 
@@ -106,7 +106,7 @@ export default function GeneralSettings() {
                                 type="email"
                                 value={config.contactEmail}
                                 onChange={(e) => setConfig({ ...config, contactEmail: e.target.value })}
-                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold text-slate-900"
+                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black focus:bg-white transition-all font-bold text-slate-900"
                             />
                         </div>
 
@@ -116,7 +116,7 @@ export default function GeneralSettings() {
                                 type="text"
                                 value={config.supportWhatsApp}
                                 onChange={(e) => setConfig({ ...config, supportWhatsApp: e.target.value })}
-                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold text-slate-900"
+                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black focus:bg-white transition-all font-bold text-slate-900"
                             />
                         </div>
 
@@ -126,7 +126,7 @@ export default function GeneralSettings() {
                                 rows={3}
                                 value={config.officeAddress}
                                 onChange={(e) => setConfig({ ...config, officeAddress: e.target.value })}
-                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold text-slate-900 resize-none"
+                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black focus:bg-white transition-all font-bold text-slate-900 resize-none"
                             ></textarea>
                         </div>
                     </div>
@@ -134,7 +134,7 @@ export default function GeneralSettings() {
                     <button
                         type="submit"
                         disabled={saving}
-                        className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest hover:text-cyan-400 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/20"
+                        className="w-full py-4 bg-black text-white rounded-2xl font-black uppercase tracking-widest hover:bg-zinc-800 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-black/10"
                     >
                         {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                         Save Changes

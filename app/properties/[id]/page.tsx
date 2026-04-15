@@ -9,6 +9,7 @@ import SafeImage from '@/components/SafeImage';
 import { Property as PropertyType } from '@/types';
 import PropertyBookingClient from '@/components/PropertyBookingClient';
 import BookingTrigger from '@/components/BookingTrigger';
+import MarketChart from '@/components/MarketChart';
 
 const serializeProperty = (doc: any): PropertyType => ({
     id: doc._id?.toString() || '',
@@ -77,8 +78,8 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
                                 fallbackSrc="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"
                             />
                             <div className="absolute top-8 left-8 flex space-x-3">
-                                {property.featured && <span className="bg-amber-400 text-slate-900 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">Featured</span>}
-                                <span className="bg-white text-indigo-600 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">{property.type}</span>
+                                {property.featured && <span className="bg-amber-400 text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">Featured</span>}
+                                <span className="bg-white text-black text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">{property.type}</span>
                             </div>
                         </div>
 
@@ -105,7 +106,7 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
                                     {property.title}
                                 </h1>
                                 <p className="text-xl text-slate-500 font-medium flex items-center">
-                                    <svg className="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                    <svg className="w-5 h-5 mr-2 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                                     {property.location}, {property.city}
                                 </p>
                             </div>
@@ -118,10 +119,10 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
                             </div>
 
                             {/* Book Now Button Area - After Property Overview as requested */}
-                            <div className="reveal bg-slate-950 p-10 rounded-[3rem] text-white shadow-2xl shadow-indigo-100 relative overflow-hidden">
+                            <div className="reveal bg-slate-950 p-10 rounded-[3rem] text-white shadow-2xl shadow-zinc-900/10 relative overflow-hidden">
                                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                                     <div>
-                                        <p className="text-xs font-black text-indigo-400 uppercase tracking-[0.3em] mb-2">Investment Ask</p>
+                                        <p className="text-xs font-black text-zinc-400 uppercase tracking-[0.3em] mb-2">Investment Ask</p>
                                         <h4 className="text-4xl font-black tracking-tighter">
                                             PKR {(property.price / 10000000).toFixed(1)} <span className="text-xl font-medium text-slate-400 italic">Crore</span>
                                         </h4>
@@ -132,13 +133,13 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
                                         Book Now
                                     </BookingTrigger>
                                 </div>
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-cyan-500/20 to-indigo-500/20 rounded-full blur-3xl"></div>
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-zinc-800/50 rounded-full blur-3xl"></div>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-8">
                                 {property.features?.map(feature => (
-                                    <div key={feature} className="flex items-center text-slate-900 font-bold bg-white p-5 rounded-2xl border border-slate-100 shadow-sm transition-all hover:border-indigo-100 hover:shadow-indigo-50">
-                                        <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center mr-4">
+                                    <div key={feature} className="flex items-center text-slate-900 font-bold bg-white p-5 rounded-2xl border border-slate-100 shadow-sm transition-all hover:border-black hover:shadow-xl">
+                                        <div className="w-8 h-8 rounded-lg bg-zinc-100 text-black flex items-center justify-center mr-4">
                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
                                         </div>
                                         {feature}
@@ -165,7 +166,7 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
                                     </div>
                                     <div>
                                         <p className="font-black text-slate-900 text-lg leading-tight tracking-tight">Khalid Mehmood</p>
-                                        <p className="text-xs text-indigo-600 font-bold uppercase tracking-widest mt-1">Senior Dealer</p>
+                                        <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest mt-1">Senior Dealer</p>
                                     </div>
                                 </div>
 
@@ -174,7 +175,7 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
                                         href="https://wa.me/923364695525"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-full flex items-center justify-center space-x-3 py-4 rounded-2xl bg-emerald-500 text-white font-black text-xs uppercase tracking-widest hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-50"
+                                        className="w-full flex items-center justify-center space-x-3 py-4 rounded-2xl bg-black text-white font-black text-xs uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-lg shadow-black/10"
                                     >
                                         <span>Direct WhatsApp</span>
                                     </a>
@@ -194,10 +195,10 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
                 <div className="mt-40">
                     <div className="reveal mb-12 flex justify-between items-end">
                         <div className="space-y-4">
-                            <h2 className="text-xs font-black text-indigo-600 uppercase tracking-[0.3em]">Similar Deals</h2>
-                            <h3 className="text-4xl font-black text-slate-900 tracking-tight">You Might Also <span className="text-indigo-600">Consider.</span></h3>
+                            <h2 className="text-xs font-black text-zinc-500 uppercase tracking-[0.3em]">Similar Deals</h2>
+                            <h3 className="text-4xl font-black text-slate-900 tracking-tight">You Might Also <span className="text-zinc-500">Consider.</span></h3>
                         </div>
-                        <Link href="/properties" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors hidden md:block uppercase tracking-widest">
+                        <Link href="/properties" className="text-sm font-bold text-slate-400 hover:text-black transition-colors hidden md:block uppercase tracking-widest">
                             Browse All Inventory
                         </Link>
                     </div>
@@ -212,43 +213,54 @@ export default async function PropertyDetailsPage(props: { params: Promise<{ id:
 
                 {/* Market Intelligence / Investment Highlights Section */}
                 <div className="mt-40 reveal bg-slate-900 rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden shadow-3xl shadow-slate-200">
-                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div>
-                            <h2 className="text-xs font-black text-indigo-400 uppercase tracking-[0.4em] mb-6">Market Intelligence</h2>
-                            <h3 className="text-4xl md:text-5xl font-black mb-8 tracking-tight leading-[1.1]">
-                                Why This Invesment <br /><span className="text-indigo-400">Makes Sense Today.</span>
+                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-16">
+                        {/* Left: Chart (3 cols) */}
+                        <div className="lg:col-span-3">
+                            <h2 className="text-xs font-black text-zinc-400 uppercase tracking-[0.4em] mb-6">Market Intelligence</h2>
+                            <h3 className="text-3xl md:text-4xl font-black mb-8 tracking-tight leading-[1.1]">
+                                Why This Investment <br /><span className="text-zinc-400">Makes Sense Today.</span>
                             </h3>
-                            <p className="text-slate-400 text-lg mb-10 font-medium leading-relaxed">
-                                Our data analytics team identifies this property as a high-yield asset with a projected 15% capital appreciation over the next 18 months due to upcoming infrastructure developments in the sector.
-                            </p>
+                            <MarketChart
+                                propertyPrice={property.price}
+                                propertyCity={property.city}
+                                propertyType={property.type}
+                                rentalYield={property.marketAnalysis?.rentalYield || '6.5%'}
+                                sectorDemand={property.marketAnalysis?.sectorDemand || 'High'}
+                            />
+                        </div>
+
+                        {/* Right: Info + CTA (2 cols) */}
+                        <div className="lg:col-span-2 flex flex-col justify-between gap-8">
                             <div className="space-y-6">
                                 {[
-                                    { t: 'Rental Yield', v: property.marketAnalysis?.rentalYield, i: '📈' },
-                                    { t: 'Sector Demand', v: property.marketAnalysis?.sectorDemand, i: '💎' },
-                                    { t: 'Risk Profile', v: property.marketAnalysis?.riskProfile, i: '🛡️' }
+                                    { t: 'Rental Yield', v: property.marketAnalysis?.rentalYield, i: '📈', desc: 'Expected annual return from renting this property' },
+                                    { t: 'Sector Demand', v: property.marketAnalysis?.sectorDemand, i: '💎', desc: 'Current buyer interest level in this area' },
+                                    { t: 'Risk Profile', v: property.marketAnalysis?.riskProfile, i: '🛡️', desc: 'Investment stability assessment' }
                                 ].map((insight, i) => (
-                                    <div key={i} className="flex items-center gap-6 p-6 rounded-2xl bg-white/5 border border-white/10">
-                                        <span className="text-3xl">{insight.i}</span>
+                                    <div key={i} className="flex items-start gap-5 p-5 rounded-2xl bg-white/5 border border-white/10">
+                                        <span className="text-2xl mt-0.5">{insight.i}</span>
                                         <div>
                                             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{insight.t}</p>
                                             <p className="font-bold text-white text-lg">{insight.v}</p>
+                                            <p className="text-xs text-zinc-500 mt-1">{insight.desc}</p>
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                        </div>
-                        <div className="bg-gradient-to-br from-indigo-600 to-cyan-500 rounded-[2.5rem] p-10 md:p-14 text-center shadow-2xl shadow-cyan-500/20">
-                            <h4 className="text-2xl font-black mb-6">Connect with a Specialist</h4>
-                            <p className="text-indigo-100 mb-10 font-medium">Get a personalized investment roadmap and ROI projection for this specific unit.</p>
-                            <BookingTrigger
-                                className="w-full bg-white text-indigo-600 px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-50 transition-all shadow-xl active:scale-95"
-                            >
-                                Get Market Analysis
-                            </BookingTrigger>
+
+                            <div className="bg-white rounded-[2rem] p-8 text-center shadow-2xl shadow-black/5 border border-zinc-100">
+                                <h4 className="text-xl font-black mb-4 text-black">Connect with a Specialist</h4>
+                                <p className="text-zinc-500 mb-6 text-sm font-medium">Get a personalized investment roadmap and ROI projection for this specific unit.</p>
+                                <BookingTrigger
+                                    className="w-full bg-black text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-xl active:scale-95"
+                                >
+                                    Get Market Analysis
+                                </BookingTrigger>
+                            </div>
                         </div>
                     </div>
                     {/* Decorative abstract elements */}
-                    <div className="absolute -top-24 -left-24 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+                    <div className="absolute -top-24 -left-24 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
                     <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
                 </div>
             </div>

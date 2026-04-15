@@ -72,16 +72,16 @@ export default function SecuritySettings() {
     return (
         <div className="min-h-screen bg-slate-50 p-6 md:p-12">
             <div className="max-w-3xl mx-auto space-y-10">
-                <Link href="/admin/settings" className="inline-flex items-center gap-2 text-slate-400 hover:text-indigo-600 transition-colors font-bold uppercase text-[10px] tracking-widest">
+                <Link href="/admin/settings" className="inline-flex items-center gap-2 text-slate-400 hover:text-black transition-colors font-bold uppercase text-[10px] tracking-widest">
                     <ArrowLeft className="w-4 h-4" /> Back to Settings
                 </Link>
 
                 <header>
                     <div className="flex items-center gap-4 mb-2">
-                        <div className="p-3 bg-rose-600 rounded-2xl text-white">
+                        <div className="p-3 bg-black rounded-2xl text-white">
                             <Shield className="w-6 h-6" />
                         </div>
-                        <h1 className="text-4xl font-black text-slate-900 tracking-tight">Security <span className="text-rose-600">Vault.</span></h1>
+                        <h1 className="text-4xl font-black text-slate-900 tracking-tight">Security <span className="text-zinc-500">Vault.</span></h1>
                     </div>
                     <p className="text-slate-500 font-medium">Manage access controls and administrative credentials</p>
                 </header>
@@ -90,7 +90,7 @@ export default function SecuritySettings() {
                     {/* Access Code Settings */}
                     <form onSubmit={handleSaveAccessCode} className="bg-white p-8 md:p-12 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-8">
                         <div className="flex items-center gap-3 mb-2">
-                            <Key className="w-5 h-5 text-indigo-600" />
+                            <Key className="w-5 h-5 text-black" />
                             <h2 className="text-xl font-extrabold text-slate-900">Admin Access Code</h2>
                         </div>
                         <p className="text-xs text-slate-400 font-medium leading-relaxed">
@@ -102,13 +102,13 @@ export default function SecuritySettings() {
                                 type="text"
                                 value={config.adminAccessCode}
                                 onChange={(e) => setConfig({ ...config, adminAccessCode: e.target.value })}
-                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold text-slate-900 tracking-widest"
+                                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black focus:bg-white transition-all font-bold text-slate-900 tracking-widest"
                             />
                         </div>
                         <button
                             type="submit"
                             disabled={saving}
-                            className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest hover:text-cyan-400 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/20"
+                            className="w-full py-4 bg-black text-white rounded-2xl font-black uppercase tracking-widest hover:bg-zinc-800 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-black/10"
                         >
                             {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                             Update Access Code
@@ -118,7 +118,7 @@ export default function SecuritySettings() {
                     {/* Password Change */}
                     <form onSubmit={handlePasswordChange} className="bg-white p-8 md:p-12 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-8">
                         <div className="flex items-center gap-3 mb-2">
-                            <Lock className="w-5 h-5 text-rose-600" />
+                            <Lock className="w-5 h-5 text-black" />
                             <h2 className="text-xl font-extrabold text-slate-900">Change Password</h2>
                         </div>
                         <div className="space-y-6">
@@ -152,8 +152,8 @@ export default function SecuritySettings() {
                                 </div>
                             </div>
                         </div>
-                        <div className="p-4 bg-rose-50 border border-rose-100 rounded-xl">
-                            <p className="text-[10px] text-rose-600 font-bold text-center">Password changes are currently managed via authentication provider.</p>
+                        <div className="p-4 bg-zinc-100 border border-zinc-200 rounded-xl">
+                            <p className="text-[10px] text-zinc-600 font-bold text-center">Password changes are currently managed via authentication provider.</p>
                         </div>
                     </form>
                 </div>

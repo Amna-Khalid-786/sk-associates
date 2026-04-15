@@ -60,9 +60,9 @@ export default function NotificationsSettings() {
     }
 
     const Toggle = ({ active, onToggle, label, icon: Icon }: any) => (
-        <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 group hover:bg-white hover:border-indigo-100 transition-all">
+        <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 group hover:bg-white hover:border-zinc-200 transition-all">
             <div className="flex items-center gap-4">
-                <div className={`p-2 rounded-xl ${active ? 'bg-gradient-to-r from-indigo-600 to-cyan-500 text-white' : 'bg-slate-200 text-slate-500'}`}>
+                <div className={`p-2 rounded-xl ${active ? 'bg-black text-white' : 'bg-slate-200 text-slate-500'}`}>
                     <Icon className="w-5 h-5" />
                 </div>
                 <div>
@@ -73,7 +73,7 @@ export default function NotificationsSettings() {
             <button
                 type="button"
                 onClick={onToggle}
-                className={`w-12 h-6 rounded-full relative transition-colors ${active ? 'bg-gradient-to-r from-indigo-600 to-cyan-500' : 'bg-slate-300'}`}
+                className={`w-12 h-6 rounded-full relative transition-colors ${active ? 'bg-black' : 'bg-slate-300'}`}
             >
                 <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${active ? 'right-1' : 'left-1'}`} />
             </button>
@@ -83,16 +83,16 @@ export default function NotificationsSettings() {
     return (
         <div className="min-h-screen bg-slate-50 p-6 md:p-12">
             <div className="max-w-3xl mx-auto space-y-10">
-                <Link href="/admin/settings" className="inline-flex items-center gap-2 text-slate-400 hover:text-indigo-600 transition-colors font-bold uppercase text-[10px] tracking-widest">
+                <Link href="/admin/settings" className="inline-flex items-center gap-2 text-slate-400 hover:text-black transition-colors font-bold uppercase text-[10px] tracking-widest">
                     <ArrowLeft className="w-4 h-4" /> Back to Settings
                 </Link>
 
                 <header>
                     <div className="flex items-center gap-4 mb-2">
-                        <div className="p-3 bg-amber-500 rounded-2xl text-white">
+                        <div className="p-3 bg-black rounded-2xl text-white">
                             <Bell className="w-6 h-6" />
                         </div>
-                        <h1 className="text-4xl font-black text-slate-900 tracking-tight">Alert <span className="text-amber-500">Center.</span></h1>
+                        <h1 className="text-4xl font-black text-slate-900 tracking-tight">Alert <span className="text-zinc-500">Center.</span></h1>
                     </div>
                     <p className="text-slate-500 font-medium">Configure how you receive booking and system notifications</p>
                 </header>
@@ -126,7 +126,7 @@ export default function NotificationsSettings() {
                                     value={config.alertRecipientEmail}
                                     onChange={(e) => setConfig({ ...config, alertRecipientEmail: e.target.value })}
                                     placeholder="email@example.com"
-                                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold text-slate-900"
+                                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black focus:bg-white transition-all font-bold text-slate-900"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -136,7 +136,7 @@ export default function NotificationsSettings() {
                                     value={config.alertRecipientWhatsApp}
                                     onChange={(e) => setConfig({ ...config, alertRecipientWhatsApp: e.target.value })}
                                     placeholder="923364695525"
-                                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all font-bold text-slate-900"
+                                    className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black focus:bg-white transition-all font-bold text-slate-900"
                                 />
                             </div>
                         </div>
@@ -145,7 +145,7 @@ export default function NotificationsSettings() {
                     <button
                         type="submit"
                         disabled={saving}
-                        className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black uppercase tracking-widest hover:text-cyan-400 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/20"
+                        className="w-full py-4 bg-black text-white rounded-2xl font-black uppercase tracking-widest hover:bg-zinc-800 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3 shadow-xl shadow-black/10"
                     >
                         {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                         Apply Notification Settings

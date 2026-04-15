@@ -63,22 +63,22 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                         <X className="w-5 h-5" />
                     </button>
                 )}
-                <div className="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-8 relative">
-                    <Lock className="w-10 h-10 text-cyan-500" />
-                    <div className="absolute inset-0 bg-indigo-600/5 rounded-full animate-ping"></div>
+                <div className="w-20 h-20 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-8 relative">
+                    <Lock className="w-10 h-10 text-black" />
+                    <div className="absolute inset-0 bg-black/5 rounded-full animate-ping"></div>
                 </div>
                 <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">Authentication Required</h3>
                 <p className="text-slate-500 mb-8 font-medium">Please sign in to your account to send booking inquiries and view exclusive market deals.</p>
                 <div className="flex flex-col gap-4">
                     <Link
                         href="/login"
-                        className="w-full bg-slate-950 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-gradient-to-r hover:from-indigo-600 hover:to-cyan-500 transition-all shadow-xl shadow-slate-900/10"
+                        className="w-full bg-black text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-zinc-800 transition-all shadow-xl shadow-black/10"
                     >
                         Sign in to Continue
                     </Link>
                     <Link
                         href="/signup"
-                        className="text-cyan-500 font-bold text-sm hover:underline"
+                        className="text-black font-bold text-sm hover:underline"
                     >
                         Create an account
                     </Link>
@@ -94,12 +94,12 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-12 px-6 bg-white rounded-3xl"
             >
-                <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 className="w-10 h-10 text-emerald-600" />
+                <div className="w-20 h-20 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 className="w-10 h-10 text-black" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 mb-2">Request Received!</h3>
                 <p className="text-slate-500 mb-6">Our experts at SK Associates will contact you shortly.</p>
-                <div className="text-[10px] font-black uppercase tracking-widest text-cyan-500">
+                <div className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
                     Premium Property Inquiry
                 </div>
             </motion.div>
@@ -119,11 +119,11 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
 
             <div className="mb-8">
                 <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-2">Book a Consultation</h3>
-                <p className="text-slate-500 text-sm font-medium">For: <span className="text-cyan-500 font-bold">{propertyTitle}</span></p>
+                <p className="text-slate-500 text-sm font-medium">For: <span className="text-black font-bold">{propertyTitle}</span></p>
             </div>
 
             {error && (
-                <div className="bg-rose-50 border border-rose-100 text-rose-600 p-4 rounded-xl mb-6 text-sm font-medium">
+                <div className="bg-zinc-100 border border-zinc-200 text-zinc-700 p-4 rounded-xl mb-6 text-sm font-medium">
                     {error}
                 </div>
             )}
@@ -137,7 +137,7 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                             required
                             type="text"
                             placeholder="John Doe"
-                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-500 transition-all font-medium text-slate-900"
+                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black transition-all font-medium text-slate-900"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         />
@@ -153,7 +153,7 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                                 required
                                 type="email"
                                 placeholder="john@example.com"
-                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-500 transition-all font-medium text-slate-900"
+                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black transition-all font-medium text-slate-900"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             />
@@ -167,7 +167,7 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                                 required
                                 type="tel"
                                 placeholder="03XXXXXXXXX"
-                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-500 transition-all font-medium text-slate-900"
+                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black transition-all font-medium text-slate-900"
                                 value={formData.phone}
                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             />
@@ -183,7 +183,7 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                             required
                             rows={4}
                             placeholder="Tell us more about your interest..."
-                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-indigo-500 transition-all font-medium text-slate-900 resize-none"
+                            className="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:border-black transition-all font-medium text-slate-900 resize-none"
                             value={formData.message}
                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         />
@@ -194,7 +194,7 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
                     disabled={loading}
-                    className="w-full bg-slate-950 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-gradient-to-r hover:from-indigo-600 hover:to-cyan-500 transition-all flex items-center justify-center gap-3 shadow-xl shadow-slate-900/10 disabled:opacity-50 mt-4"
+                    className="w-full bg-black text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-zinc-800 transition-all flex items-center justify-center gap-3 shadow-xl shadow-black/10 disabled:opacity-50 mt-4"
                 >
                     {loading ? (
                         <Loader2 className="w-5 h-5 animate-spin" />

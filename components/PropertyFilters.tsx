@@ -1,10 +1,10 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-const PropertyFilters = () => {
+const PropertyFiltersInner = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -12,46 +12,32 @@ const PropertyFilters = () => {
     const [selectedCity, setSelectedCity] = useState(searchParams.get('city') || 'All');
     const [selectedType, setSelectedType] = useState(searchParams.get('type') || 'All');
 
-    // Sync state from URL parameters (e.g. initial load, back/forward button)
-    useEffect(() => {
-        const newSearch = searchParams.get('search') || '';
-        const newCity = searchParams.get('city') || 'All';
-        const newType = searchParams.get('type') || 'All';
-
-        // Only update local state if it differs from the URL and we are not currently debouncing a change
-        // We use functional updates to avoid dependency on the states themselves
-        setSearchQuery(prev => prev !== newSearch ? newSearch : prev);
-        setSelectedCity(prev => prev !== newCity ? newCity : prev);
-        setSelectedType(prev => prev !== newType ? newType : prev);
-    }, [searchParams]);
-
-    const handleFilterChange = (key: string, value: string) => {
+    // Build URL and navigate
+    const applyFilters = useCallback((overrides: Record<string, string> = {}) => {
         const params = new URLSearchParams(searchParams.toString());
-        if (value && value !== 'All') {
-            params.set(key, value);
-        } else {
-            params.delete(key);
-        }
-        router.push(`/properties?${params.toString()}`);
-    }
+        
+        Object.entries(overrides).forEach(([key, value]) => {
+            if (value && value !== 'All' && value !== '') {
+                params.set(key, value);
+            } else {
+                params.delete(key);
+            }
+        });
+
+        router.replace(`/properties?${params.toString()}`);
+    }, [searchParams, router]);
 
     // Debounce search input
     useEffect(() => {
-        // Skip if the search query already matches the URL (prevents duplicate pushes)
-        if (searchQuery === (searchParams.get('search') || '')) return;
+        const currentSearch = searchParams.get('search') || '';
+        if (searchQuery === currentSearch) return;
 
         const timer = setTimeout(() => {
-            const params = new URLSearchParams(searchParams.toString());
-            if (searchQuery) {
-                params.set('search', searchQuery);
-            } else {
-                params.delete('search');
-            }
-            router.push(`/properties?${params.toString()}`);
+            applyFilters({ search: searchQuery });
         }, 500);
 
         return () => clearTimeout(timer);
-    }, [searchQuery, searchParams, router]);
+    }, [searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div className="flex flex-col gap-8">
@@ -76,8 +62,9 @@ const PropertyFilters = () => {
                 <select
                     value={selectedCity}
                     onChange={(e) => {
-                        setSelectedCity(e.target.value);
-                        handleFilterChange('city', e.target.value);
+                        const val = e.target.value;
+                        setSelectedCity(val);
+                        applyFilters({ city: val });
                     }}
                     className="w-full bg-white border border-zinc-200 rounded-2xl px-5 py-4 text-sm focus:ring-1 focus:ring-black outline-none cursor-pointer shadow-sm appearance-none"
                     style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0\' stroke=\'%23a1a1aa\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.5em' }}
@@ -97,7 +84,7 @@ const PropertyFilters = () => {
                             key={type}
                             onClick={() => {
                                 setSelectedType(type);
-                                handleFilterChange('type', type);
+                                applyFilters({ type });
                             }}
                             className={`text-left px-5 py-3 rounded-xl text-sm font-bold transition-all border ${selectedType === type
                                 ? 'bg-black border-black text-white shadow-lg shadow-black/10'
@@ -110,6 +97,14 @@ const PropertyFilters = () => {
                 </div>
             </div>
         </div>
+    );
+};
+
+const PropertyFilters = () => {
+    return (
+        <Suspense fallback={<div className="animate-pulse space-y-6"><div className="h-12 bg-zinc-100 rounded-2xl"></div><div className="h-12 bg-zinc-100 rounded-2xl"></div><div className="h-40 bg-zinc-100 rounded-2xl"></div></div>}>
+            <PropertyFiltersInner />
+        </Suspense>
     );
 };
 

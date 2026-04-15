@@ -38,7 +38,7 @@ const SafeImage: React.FC<SafeImageProps> = ({
         <div className={`relative w-full h-full overflow-hidden ${className}`}>
             {isLoading && (
                 <div className="absolute inset-0 bg-slate-100 flex items-center justify-center z-10 transition-opacity duration-300">
-                    <div className="w-8 h-8 border-2 border-indigo-600/20 border-t-indigo-600 rounded-full animate-spin" />
+                    <div className="w-8 h-8 border-2 border-black/20 border-t-black rounded-full animate-spin" />
                 </div>
             )}
             <Image

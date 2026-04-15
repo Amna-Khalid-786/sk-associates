@@ -103,7 +103,7 @@ const ContactPage = () => {
                                 <input
                                     required
                                     type="tel"
-                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none font-medium text-slate-900"
+                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-black focus:border-black transition-all outline-none font-medium text-slate-900"
                                     placeholder="+92 300 1234567"
                                     value={formData.phone}
                                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -115,7 +115,7 @@ const ContactPage = () => {
                             <input
                                 required
                                 type="email"
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none font-medium text-slate-900"
+                                className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-black focus:border-black transition-all outline-none font-medium text-slate-900"
                                 placeholder="john@example.com"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -124,7 +124,7 @@ const ContactPage = () => {
                         <div className="space-y-2">
                             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Subject</label>
                             <select
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none cursor-pointer font-medium text-slate-900"
+                                className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-black focus:border-black transition-all outline-none cursor-pointer font-medium text-slate-900"
                                 value={formData.subject}
                                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                             >

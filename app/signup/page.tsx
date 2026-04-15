@@ -49,13 +49,13 @@ export default function SignupPage() {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
+                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80"
                     alt="Real Estate Background"
                     fill
-                    className="object-cover opacity-30 scale-105 animate-pulse-slow"
+                    className="object-cover opacity-60"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-black via-black/80 to-zinc-900/50"></div>
+                <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
             </div>
 
             {/* Floating Decorative Elements */}

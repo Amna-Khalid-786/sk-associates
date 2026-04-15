@@ -64,7 +64,7 @@ export default function PropertyBookingClient({ property }: PropertyBookingClien
             <div className={`bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-16 z-40 hidden md:block transition-all duration-300 ${scrolled ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0 pointer-events-none'}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
                     <div className="flex items-center space-x-4 text-xs font-bold text-slate-400">
-                        <Link href="/properties" className="hover:text-indigo-600">Listings</Link>
+                        <Link href="/properties" className="hover:text-black">Listings</Link>
                         <span>/</span>
                         <span className="text-slate-900 truncate max-w-[200px]">{property.title}</span>
                     </div>
@@ -78,7 +78,7 @@ export default function PropertyBookingClient({ property }: PropertyBookingClien
             <div className="fixed bottom-8 right-8 z-50 md:hidden">
                 <button
                     onClick={triggerBooking}
-                    className="w-16 h-16 bg-gradient-to-r from-indigo-600 to-cyan-500 text-white rounded-full shadow-2xl flex items-center justify-center animate-bounce hover:from-indigo-700 hover:to-cyan-600 transition-colors"
+                    className="w-16 h-16 bg-black text-white rounded-full shadow-2xl flex items-center justify-center animate-bounce hover:bg-zinc-800 transition-colors"
                 >
                     <span className="text-lg">🏡</span>
                 </button>
