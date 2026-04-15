@@ -1,19 +1,9 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ReferenceLine } from 'recharts';
-import { MarketData } from '@/types';
 import { motion } from 'framer-motion';
-
-const MARKET_TRENDS: MarketData[] = [
-    { month: 'Oct', islamabad: 12, rawalpindi: 8, lahore: 10 },
-    { month: 'Nov', islamabad: 15, rawalpindi: 9, lahore: 12 },
-    { month: 'Dec', islamabad: 14, rawalpindi: 11, lahore: 13 },
-    { month: 'Jan', islamabad: 18, rawalpindi: 12, lahore: 15 },
-    { month: 'Feb', islamabad: 20, rawalpindi: 14, lahore: 17 },
-    { month: 'Mar', islamabad: 22, rawalpindi: 15, lahore: 19 },
-];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -27,7 +17,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
                                 <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: entry.color }}></div>
                                 <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">{entry.name}</span>
                             </span>
-                            <span className="text-sm font-black text-zinc-900">+{entry.value}%</span>
+                            <span className="text-sm font-black text-zinc-900">{entry.value} listings</span>
                         </div>
                     ))}
                 </div>
@@ -37,20 +27,55 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
+interface TrendsData {
+    monthlyTrends: any[];
+    citySummary: any[];
+    typeBreakdown: any[];
+    overview: {
+        totalProperties: number;
+        totalBookings: number;
+        pendingBookings: number;
+        completedDeals: number;
+    };
+}
+
 const MarketAnalysis: React.FC = () => {
     const [isMounted, setIsMounted] = React.useState(false);
+    const [trendsData, setTrendsData] = useState<TrendsData | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setIsMounted(true);
+        fetchTrends();
     }, []);
 
-    if (!isMounted) {
+    const fetchTrends = async () => {
+        try {
+            const res = await fetch('/api/trends');
+            const data = await res.json();
+            if (res.ok) {
+                setTrendsData(data);
+            }
+        } catch (err) {
+            console.error('Fetch trends error:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (!isMounted || loading) {
         return (
             <div className="bg-white p-10 rounded-[3rem] shadow-xl shadow-zinc-200/50 border border-zinc-100 h-[600px] flex items-center justify-center">
-                <div className="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+                    <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Loading market data...</p>
+                </div>
             </div>
         );
     }
+
+    const chartData = trendsData?.monthlyTrends || [];
+    const citySummary = trendsData?.citySummary || [];
 
     return (
         <motion.div
@@ -63,13 +88,29 @@ const MarketAnalysis: React.FC = () => {
             {/* Subtle Texture Background */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
+            {/* Chart Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6 relative z-10">
-                {/* Header elements removed for cleaner look */}
+                <div>
+                    <h3 className="text-2xl font-black text-zinc-900 mb-1">Property Activity by City</h3>
+                    <p className="text-xs text-zinc-400 font-bold uppercase tracking-widest">New listings & inquiries — Last 6 months</p>
+                </div>
+                {trendsData?.overview && (
+                    <div className="flex items-center gap-4">
+                        <div className="bg-zinc-50 px-4 py-2 rounded-2xl border border-zinc-100">
+                            <p className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">Total Properties</p>
+                            <p className="text-lg font-black text-zinc-900">{trendsData.overview.totalProperties}</p>
+                        </div>
+                        <div className="bg-zinc-50 px-4 py-2 rounded-2xl border border-zinc-100">
+                            <p className="text-[9px] font-black text-zinc-400 uppercase tracking-widest">Deals Closed</p>
+                            <p className="text-lg font-black text-zinc-900">{trendsData.overview.completedDeals}</p>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <div className="h-[400px] w-full relative z-10 min-w-0">
                 <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-                    <AreaChart data={MARKET_TRENDS} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
+                    <AreaChart data={chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
                         <defs>
                             <filter id="shadow" height="200%">
                                 <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
@@ -109,7 +150,7 @@ const MarketAnalysis: React.FC = () => {
                             fontSize={12}
                             tickLine={false}
                             axisLine={false}
-                            tickFormatter={(value) => `${value}%`}
+                            allowDecimals={false}
                             tick={{ dx: -10, fontWeight: 700 }}
                         />
                         <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#f4f4f5', strokeWidth: 2, strokeDasharray: '5 5' }} />
@@ -152,22 +193,19 @@ const MarketAnalysis: React.FC = () => {
                 </ResponsiveContainer>
             </div>
 
+            {/* Dynamic City Stats */}
             <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 relative z-10">
-                <div className="p-6 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-black transition-all hover:bg-white group">
-                    <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-zinc-100 text-zinc-700 text-[10px] font-black uppercase tracking-widest mb-4">Islamabad</div>
-                    <div className="text-3xl font-black text-zinc-900 mb-1">+22.4%</div>
-                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-tight">Year-on-year growth</p>
-                </div>
-                <div className="p-6 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-zinc-400 transition-all hover:bg-white group">
-                    <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-zinc-200 text-zinc-800 text-[10px] font-black uppercase tracking-widest mb-4">Lahore</div>
-                    <div className="text-3xl font-black text-zinc-900 mb-1">+19.1%</div>
-                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-tight">Year-on-year growth</p>
-                </div>
-                <div className="p-6 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-zinc-300 transition-all hover:bg-white group">
-                    <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-zinc-300 text-zinc-900 text-[10px] font-black uppercase tracking-widest mb-4">Rawalpindi</div>
-                    <div className="text-3xl font-black text-zinc-900 mb-1">+15.8%</div>
-                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-tight">Year-on-year growth</p>
-                </div>
+                {citySummary.map((city: any, i: number) => (
+                    <div key={i} className="p-6 bg-zinc-50 rounded-3xl border border-zinc-100 hover:border-black transition-all hover:bg-white group">
+                        <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-4 ${
+                            i === 0 ? 'bg-zinc-100 text-zinc-700' : i === 1 ? 'bg-zinc-200 text-zinc-800' : 'bg-zinc-300 text-zinc-900'
+                        }`}>{city.city}</div>
+                        <div className="text-3xl font-black text-zinc-900 mb-1">{city.growthRate}</div>
+                        <p className="text-xs text-zinc-500 font-bold uppercase tracking-tight">
+                            {city.totalProperties} properties · {city.trend}
+                        </p>
+                    </div>
+                ))}
             </div>
         </motion.div>
     );
