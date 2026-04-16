@@ -82,7 +82,7 @@ const MarketAnalysis: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-black p-8 md:p-10 rounded-[3rem] shadow-2xl shadow-black/20 relative overflow-hidden min-w-0"
+            className="bg-black p-8 md:p-10 rounded-[3rem] shadow-2xl shadow-black/20 relative overflow-hidden min-w-0 h-full flex flex-col"
             id="trends"
         >
             {/* Subtle glow */}
@@ -92,23 +92,23 @@ const MarketAnalysis: React.FC = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6 relative z-10">
                 <div>
                     <h3 className="text-2xl font-black text-white mb-1">Property Activity by City</h3>
-                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">New listings & inquiries — Last 6 months</p>
+                    <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest">New listings & analytics — Last 6 months</p>
                 </div>
                 {trendsData?.overview && (
                     <div className="flex items-center gap-4">
                         <div className="bg-white/10 px-4 py-2 rounded-2xl border border-white/10">
-                            <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Total Properties</p>
+                            <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Available Listings</p>
                             <p className="text-lg font-black text-white">{trendsData.overview.totalProperties}</p>
                         </div>
                         <div className="bg-white/10 px-4 py-2 rounded-2xl border border-white/10">
-                            <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Deals Closed</p>
-                            <p className="text-lg font-black text-white">{trendsData.overview.completedDeals}</p>
+                            <p className="text-[9px] font-black text-zinc-500 uppercase tracking-widest">Market Status</p>
+                            <p className="text-lg font-black text-emerald-400">Stable</p>
                         </div>
                     </div>
                 )}
             </div>
 
-            <div className="h-[400px] w-full relative z-10 min-w-0">
+            <div className="flex-grow w-full relative z-10 min-w-0 min-h-[400px]">
                 <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                     <AreaChart data={chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
                         <defs>

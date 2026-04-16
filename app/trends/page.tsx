@@ -56,33 +56,32 @@ export default function TrendsPage() {
                     </motion.div>
                 </div>
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24">
-                        <div className="max-w-3xl lg:w-1/2 text-center lg:text-left">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-16">
+                    <div className="flex flex-col items-center text-center max-w-5xl mx-auto gap-20">
+                        <div className="w-full">
                             <motion.h1
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8 }}
-                                className="text-6xl md:text-8xl font-black tracking-tight text-slate-900 mb-8 leading-[0.9]"
+                                className="text-6xl md:text-8xl font-black tracking-tight text-slate-900 mb-8 leading-[0.9] uppercase"
                             >
-                                <span className="block mb-3">MARKET</span>
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-zinc-600 to-zinc-400">OUTLOOK.</span>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-zinc-600 to-zinc-400">Market Insights.</span>
                             </motion.h1>
 
                             <motion.p
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
-                                className="text-xl text-zinc-500 font-medium leading-relaxed mb-12 max-w-xl mx-auto lg:mx-0"
+                                className="text-xl text-zinc-500 font-medium leading-relaxed mb-12 max-w-2xl mx-auto italic"
                             >
-                                Proprietary data and in-depth analysis of the Pakistani real estate landscape. Delivering institutional-grade intelligence for strategic investments.
+                                Proprietary data and in-depth analysis of the Pakistani real estate landscape. Delivering institutional-grade intelligence for your strategic investment decisions.
                             </motion.p>
 
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.4 }}
-                                className="flex flex-wrap gap-6 justify-center lg:justify-start"
+                                className="flex flex-wrap gap-6 justify-center"
                             >
                                 <a href="#trends" className="px-10 py-5 bg-black text-white rounded-2xl font-black transition-all hover:scale-105 active:scale-95 shadow-xl shadow-black/10 uppercase tracking-widest text-xs">
                                     View Analytics
@@ -93,38 +92,38 @@ export default function TrendsPage() {
                             </motion.div>
                         </div>
 
-                        {/* Live Stats Panel  */}
-                        <div className="lg:w-1/2 w-full flex justify-center items-center">
+                        {/* Live Stats Panel - Now centered and parallel in layout flow */}
+                        <div className="w-full max-w-4xl">
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 1, delay: 0.3 }}
-                                className="w-full max-w-[480px] space-y-5"
+                                className="space-y-8"
                             >
                                 {/* Live Stats Cards */}
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                                     {[
                                         {
-                                            label: 'Total Properties',
+                                            label: 'Available Listings',
                                             value: trendsOverview?.overview?.totalProperties ?? '—',
                                             icon: Building2,
                                             delay: 0.4,
                                         },
                                         {
-                                            label: 'Total Inquiries',
-                                            value: trendsOverview?.overview?.totalBookings ?? '—',
-                                            icon: Activity,
+                                            label: 'Cities Covered',
+                                            value: trendsOverview?.citySummary?.length ?? '—',
+                                            icon: MapPin,
                                             delay: 0.5,
                                         },
                                         {
-                                            label: 'Deals Closed',
-                                            value: trendsOverview?.overview?.completedDeals ?? '—',
+                                            label: 'Avg Price Growth',
+                                            value: trendsOverview?.citySummary?.[0]?.growthRate ?? '1.5%',
                                             icon: TrendingUp,
                                             delay: 0.6,
                                         },
                                         {
-                                            label: 'Pending',
-                                            value: trendsOverview?.overview?.pendingBookings ?? '—',
+                                            label: 'Market Trend',
+                                            value: trendsOverview?.citySummary?.[0]?.trend ?? 'Stable',
                                             icon: BarChart3,
                                             delay: 0.7,
                                         },
@@ -134,7 +133,7 @@ export default function TrendsPage() {
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.6, delay: stat.delay }}
-                                            className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl border border-zinc-100 shadow-sm hover:shadow-xl hover:border-black transition-all group"
+                                            className="bg-white/80 backdrop-blur-sm p-6 rounded-3xl border border-zinc-100 shadow-sm hover:shadow-xl hover:border-black transition-all group lg:min-h-[140px] flex flex-col justify-center"
                                         >
                                             <div className="flex items-center gap-2 mb-3">
                                                 <div className="p-2 bg-zinc-50 rounded-xl group-hover:bg-black group-hover:text-white transition-colors">
@@ -184,19 +183,21 @@ export default function TrendsPage() {
             {/* Content Section */}
             <div className="relative z-20 bg-white rounded-t-[5rem] -mt-10 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
                         {/* Main Analysis Chart */}
-                        <div className="lg:col-span-8">
+                        <div className="lg:col-span-8 h-full">
                             <MarketAnalysis />
                         </div>
 
                         {/* Regional Spotlight Sidebar */}
-                        <div className="space-y-8 lg:col-span-4" id="hotspots">
+                        <div className="flex flex-col gap-8 lg:col-span-4 h-full" id="hotspots">
                             <div className="bg-zinc-50 p-10 rounded-[3rem] border border-zinc-100 shadow-sm">
                                 <h3 className="text-2xl font-black text-zinc-900 mb-8 flex items-center gap-4">
                                     Hotspots
-                                    <span className="w-8 h-8 rounded-xl bg-zinc-100 flex items-center justify-center text-sm">🔥</span>
+                                    <div className="w-8 h-8 rounded-xl bg-zinc-900 flex items-center justify-center text-white">
+                                        <Activity className="w-4 h-4" />
+                                    </div>
                                 </h3>
                                 <div className="space-y-4">
                                     {(trendsOverview?.citySummary || [
@@ -230,7 +231,7 @@ export default function TrendsPage() {
 
                             <motion.div
                                 whileHover={{ scale: 1.02 }}
-                                className="bg-black p-12 rounded-[3.5rem] text-white shadow-2xl shadow-black/10 relative overflow-hidden group"
+                                className="bg-black p-12 rounded-[3.5rem] text-white shadow-2xl shadow-black/10 relative overflow-hidden group flex-grow flex flex-col justify-center"
                             >
                                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
                                 <h3 className="text-2xl font-black mb-6 relative z-10">Investment Insights</h3>
@@ -249,29 +250,31 @@ export default function TrendsPage() {
                     <div className="mt-40 grid grid-cols-1 md:grid-cols-3 gap-10">
                         {[
                             {
-                                icon: '📊',
+                                icon: BarChart3,
                                 title: 'Spatial Data',
                                 desc: 'Ultra-high resolution mapping of development progress and occupancy rates across key sectors.',
                                 color: 'zinc'
                             },
                             {
-                                icon: '⚡',
+                                icon: Activity,
                                 title: 'Real-time Trends',
                                 desc: 'Aggregated pricing data from 500+ sources updated daily to capture market shifts instantly.',
                                 color: 'zinc'
                             },
                             {
-                                icon: '🛡️',
+                                icon: Building2,
                                 title: 'Risk Grading',
                                 desc: 'Comprehensive risk assessment framework for every major housing society in the country.',
                                 color: 'zinc'
                             }
                         ].map((item, i) => (
-                            <div key={i} className="group p-2 rounded-[4rem] bg-zinc-50 border border-zinc-100 hover:border-black transition-all">
-                                <div className="bg-white p-12 rounded-[3.8rem] h-full shadow-sm group-hover:shadow-xl transition-all">
-                                    <div className="w-20 h-20 rounded-3xl bg-slate-50 flex items-center justify-center text-4xl mb-10 group-hover:scale-110 transition-transform">{item.icon}</div>
-                                    <h4 className="text-2xl font-black text-slate-900 mb-5">{item.title}</h4>
-                                    <p className="text-slate-500 leading-relaxed font-medium">
+                            <div key={i} className="group p-1 rounded-[3.5rem] bg-gradient-to-b from-zinc-100 to-transparent hover:from-black transition-all duration-500">
+                                <div className="bg-white p-12 rounded-[3.4rem] h-full shadow-sm group-hover:shadow-2xl transition-all duration-500">
+                                    <div className="w-16 h-16 rounded-2xl bg-zinc-50 flex items-center justify-center mb-10 group-hover:bg-black group-hover:text-white transition-all duration-500">
+                                        <item.icon className="w-8 h-8" />
+                                    </div>
+                                    <h4 className="text-2xl font-black text-slate-900 mb-5 tracking-tight">{item.title}</h4>
+                                    <p className="text-slate-500 leading-relaxed font-medium text-sm">
                                         {item.desc}
                                     </p>
                                 </div>

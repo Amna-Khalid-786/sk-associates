@@ -81,8 +81,10 @@ export const authOptions: NextAuthOptions = {
         strategy: 'jwt',
     },
     secret: process.env.NEXTAUTH_SECRET,
+    debug: true,
 };
 
+console.log('Incoming NextAuth request:', process.env.NEXTAUTH_URL);
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
