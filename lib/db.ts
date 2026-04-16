@@ -3,12 +3,6 @@ import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI) {
-  throw new Error(
-    '❌ MONGODB_URI is not defined. Please add it to your .env.local file.'
-  );
-}
-
 declare global {
   var mongoose: any; // Using var for global augmentation
 }
@@ -27,6 +21,12 @@ if (!cached) {
 async function dbConnect() {
   if (cached.conn) {
     return cached.conn;
+  }
+
+  if (!MONGODB_URI) {
+    throw new Error(
+      '❌ MONGODB_URI is not defined. Please add it to your Environment Variables.'
+    );
   }
 
   if (!cached.promise) {
