@@ -45,9 +45,6 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
             if (!res.ok) throw new Error(data.error || 'Failed to submit booking');
 
             setSubmitted(true);
-            setTimeout(() => {
-                if (onClose) onClose();
-            }, 3000);
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -88,19 +85,41 @@ export default function BookingForm({ propertyId, propertyTitle, onClose }: Book
     }
 
     if (submitted) {
+        const whatsappMsg = `Hi SK Associates, I just sent an inquiry for "${propertyTitle}" through your website and would like to discuss it further.`;
+        const whatsappLink = `https://wa.me/923364695525?text=${encodeURIComponent(whatsappMsg)}`;
+
         return (
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-12 px-6 bg-white rounded-3xl"
+                className="text-center py-10 px-6 bg-white rounded-3xl"
             >
-                <div className="w-20 h-20 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle2 className="w-10 h-10 text-black" />
+                <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 className="w-10 h-10 text-green-500" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Request Received!</h3>
-                <p className="text-slate-500 mb-6">Our experts at SK Associates will contact you shortly.</p>
-                <div className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
-                    Premium Property Inquiry
+                <h3 className="text-2xl font-black text-slate-900 mb-2">Request Received!</h3>
+                <p className="text-slate-500 mb-8 font-medium">We've sent a confirmation email to you. Our experts will follow up shortly.</p>
+                
+                <div className="flex flex-col gap-3">
+                    <a
+                        href={whatsappLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-[#25D366] text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-[#128C7E] transition-all flex items-center justify-center gap-3 shadow-lg shadow-green-100"
+                    >
+                        <MessageSquare className="w-5 h-5" />
+                        Chat on WhatsApp
+                    </a>
+                    <button
+                        onClick={onClose}
+                        className="text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-slate-600 transition-colors p-2"
+                    >
+                        Close Window
+                    </button>
+                </div>
+
+                <div className="mt-8 text-[10px] font-black uppercase tracking-widest text-zinc-300">
+                    Premium Property Inquiry • SK Associates
                 </div>
             </motion.div>
         );

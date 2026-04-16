@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Booking from '@/models/Booking';
 import Property from '@/models/Property';
-import nodemailer from 'nodemailer';
+import { sendEmail } from '@/lib/mail';
 import mongoose from 'mongoose';
 
 export async function POST(req: Request) {
@@ -46,15 +46,6 @@ export async function POST(req: Request) {
 
         // Send Notifications
         try {
-            const transporter = nodemailer.createTransport({
-                host: process.env.EMAIL_HOST,
-                port: parseInt(process.env.EMAIL_PORT || '587'),
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS,
-                },
-            });
-
             const adminEmail = 'amnapersonal4@gmail.com';
             const adminWhatsApp = '923364695525';
 
@@ -69,66 +60,75 @@ export async function POST(req: Request) {
 
             const whatsappLink = `https://wa.me/${adminWhatsApp}?text=${whatsappMsg}`;
 
-            const mailOptions = {
-                from: `"SK Associates Booking" <${process.env.EMAIL_USER}>`,
+            // 1. Notify Admin of new booking
+            await sendEmail({
                 to: adminEmail,
-                subject: `New Booking Request: ${propertyTitle}`,
+                subject: `🔔 New Booking Request: ${propertyTitle} from ${name}`,
                 html: `
-                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px;">
-                        <h2 style="color: #4f46e5; text-align: center;">New Booking Alert</h2>
-                        <div style="background-color: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                            <p><strong>Property:</strong> ${propertyTitle}</p>
-                            <p><strong>Client Name:</strong> ${name}</p>
-                            <p><strong>Client Email:</strong> ${email}</p>
-                            <p><strong>Client Phone:</strong> ${phone}</p>
-                            <p><strong>Message:</strong></p>
-                            <p style="font-style: italic; color: #475569;">"${message}"</p>
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; padding: 30px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff; color: #1e293b;">
+                        <div style="text-align: center; margin-bottom: 25px;">
+                            <h1 style="color: #4f46e5; margin: 0; font-size: 24px;">New Discovery Alert</h1>
+                            <p style="color: #64748b; font-size: 14px;">A new property inquiry has been received through the website.</p>
                         </div>
-                        <div style="text-align: center; margin-top: 30px;">
-                            <a href="${whatsappLink}" style="background-color: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 14px;">
-                                Follow up on WhatsApp
+                        
+                        <div style="background-color: #f8fafc; padding: 25px; border-radius: 10px; margin-bottom: 25px; border: 1px solid #f1f5f9;">
+                            <h3 style="margin-top: 0; color: #334155; font-size: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">Inquiry Details</h3>
+                            <p style="margin: 8px 0;"><strong>Property:</strong> <span style="color: #4f46e5;">${propertyTitle}</span></p>
+                            <p style="margin: 8px 0;"><strong>Client Name:</strong> ${name}</p>
+                            <p style="margin: 8px 0;"><strong>Client Email:</strong> <a href="mailto:${email}" style="color: #4f46e5; text-decoration: none;">${email}</a></p>
+                            <p style="margin: 8px 0;"><strong>Client Phone:</strong> <a href="tel:${phone}" style="color: #4f46e5; text-decoration: none;">${phone}</a></p>
+                            <div style="margin-top: 20px;">
+                                <p style="margin-bottom: 8px;"><strong>Message:</strong></p>
+                                <div style="font-style: italic; color: #475569; padding: 12px; background-color: #ffffff; border-left: 4px solid #4f46e5; border-radius: 4px;">
+                                    "${message}"
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px; gap: 15px;">
+                            <a href="${whatsappLink}" style="display: inline-block; background-color: #10b981; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 15px; margin-bottom: 15px;">
+                                Quick Response via WhatsApp
                             </a>
+                            <p style="font-size: 13px; color: #94a3b8; margin-top: 20px;">
+                                This is an automated notification from SK Associates Admin System.
+                            </p>
                         </div>
-                        <p style="font-size: 14px; text-align: center; color: #64748b; margin-top: 20px;">
-                            Admin Alert: Check your dashboard for more details.
-                        </p>
                     </div>
-                `,
-            };
+                `
+            });
 
-            await transporter.sendMail(mailOptions);
-            console.log(`Booking email sent to admin: ${adminEmail}`);
-
-            // Send Confirmation Email to Client
-            const clientMailOptions = {
-                from: `"SK Associates" <${process.env.EMAIL_USER}>`,
+            // 2. Send Confirmation Email to Client (Auto-response)
+            await sendEmail({
                 to: email,
-                subject: `Booking Confirmation - ${propertyTitle}`,
+                subject: `Booking Confirmed: We've received your request for ${propertyTitle}`,
                 html: `
-                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px;">
-                        <h2 style="color: #4f46e5; text-align: center;">Thank You for Choosing SK Associates</h2>
-                        <p>Hello ${name},</p>
-                        <p>We have received your booking request for <strong>${propertyTitle}</strong>. Our team will contact you shortly to discuss further details.</p>
-                        <div style="background-color: #f8fafc; padding: 20px; border-radius: 10px; margin: 20px 0; border: 1px solid #e2e8f0;">
-                            <h3 style="margin-top: 0; color: #1e293b;">Booking Details:</h3>
-                            <p><strong>Property:</strong> ${propertyTitle}</p>
-                            <p><strong>Your Message:</strong> ${message}</p>
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; padding: 30px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff; color: #1e293b;">
+                        <div style="text-align: center; margin-bottom: 25px;">
+                            <h1 style="color: #4f46e5; margin: 0; font-size: 24px;">Thank You for Choosing SK Associates</h1>
+                            <p style="color: #64748b; font-size: 14px;">We have received your booking request and our team is already reviewing it.</p>
                         </div>
-                        <p>If you have any urgent queries, feel free to reply to this email.</p>
-                        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;">
-                        <p style="font-size: 12px; color: #64748b; text-align: center;">
-                            SK Associates & Builders | Pakistan's Premier Real Estate
-                        </p>
-                    </div>
-                `,
-            };
 
-            await transporter.sendMail(clientMailOptions);
-            console.log(`Confirmation email sent to client: ${email}`);
+                        <p>Hello <strong>${name}</strong>,</p>
+                        <p>Your inquiry for <strong>${propertyTitle}</strong> has been successfully submitted. We understand that finding the right property is important, and we'll get back to you as soon as possible (usually within a few hours).</p>
+                        
+                        <div style="background-color: #f8fafc; padding: 25px; border-radius: 10px; margin: 25px 0; border: 1px solid #f1f5f9;">
+                            <h3 style="margin-top: 0; color: #334155; font-size: 16px;">Booking Summary:</h3>
+                            <p style="margin: 8px 0;"><strong>Property:</strong> ${propertyTitle}</p>
+                            <p style="margin: 8px 0;"><strong>Inquiry Date:</strong> ${new Date().toLocaleDateString()}</p>
+                        </div>
+
+                        <p style="margin-bottom: 25px;">While you wait, feel free to browse more exclusive properties on our website.</p>
+
+                        <div style="border-top: 1px solid #e2e8f0; padding-top: 25px; text-align: center;">
+                            <p style="font-weight: bold; margin: 0; color: #4f46e5;">SK Associates & Builders</p>
+                            <p style="font-size: 12px; color: #94a3b8; margin-top: 5px;">Pakistan's Premier Real Estate & Construction Solutions</p>
+                        </div>
+                    </div>
+                `
+            });
 
         } catch (mailError) {
             console.error('MAIL NOTIFICATION ERROR:', mailError);
-            // We don't return error to user if only email fails after DB success
         }
 
         return NextResponse.json(
